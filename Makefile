@@ -1,28 +1,35 @@
 CC = cc 
 NAME = so_long
-LIBMLX=mlx/libmlx.dylib
-CFLAGS = -Wall -Wextra -Werror
-SRC = mandatory/main.c
+CFLAGS = -Wall -Wextra -Werror 
+SRC =	main.c \
+		map_functions.c
+libs= mylib/mylib.a
 
 OBJ = $(SRC:.c=.o)
 
-%.o: %.c
-	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+%.o: %.c so_long.h
+	$(CC) -Imlx -c $< -o $@
 
 all: $(NAME)
 
-$(NAME): $(OBJ) mlx_lab
-	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+$(libs):
+	make -C mylib
 
+$(NAME): $(OBJ) $(libs)
+	$(CC) $(OBJ) $(libs) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-mlx_lab:
-	make -C  mandatory/mlx
+tests = test.c
+TOBJ=$(tests:.c=.o)
+
+test: $(TOBJ)
+	$(CC) $(TOBJ) -lmlx -framework OpenGL -framework AppKit 
 
 clean:
-	make clean -C  mandatory/mlx
+	make clean -C mylib
 	rm -f $(OBJ)
 
 fclean:	clean
+	make fclean -C mylib
 	rm -f $(OBJ) $(NAME)
 
 re:	fclean all
