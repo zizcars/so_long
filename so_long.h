@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:45 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/16 14:17:12 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/17 11:11:21 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,20 @@
 
 #define STDERR 0
 
+typedef struct s_count
+{
+	int n_C;
+	int n_P;
+	int n_E;
+} t_count;
+
+typedef struct s_coor
+{
+	int x;
+	int y;
+}	t_coor;
+
 void	error(char *error_message);
-void	map_arr(char *file_name);
 void	check_char(char *str, int x);
+t_coor  map_arr(char *file_name);
 #endif
