@@ -1,43 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_functions.c                                    :+:      :+:    :+:   */
+/*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/17 11:13:41 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:30:40 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int ft_len(char *line)
+{
+	int len;
+
+	len = 0;
+	while (line && line[len] && line[len] != '\n')
+		len++;
+	return (len);
+}
 
 void count_char(t_count *count, char *line)
 {
 	int i;
 
 	i = 0;
-	while (line[i])
+	while (line && line[i])
 	{
 		if (line[i] == 'C')
 			count->n_C += 1;
 		else if (line[i] == 'E')
-		{
 			(count->n_E) += 1;
-			if (count->n_E != 1)
-				error("problem in E\n");
-		}
 		else if (line[i] == 'P')
-		{
 			(count->n_P) += 1;
-			if (count->n_P != 1)
-				error("problem in P\n");
-		}
 		i++;
 	}
 }
 
-void check_char(char *line, int x)
+void check_char(char *line, int max)
 {
 	char *check;
 	int i;
@@ -46,11 +48,11 @@ void check_char(char *line, int x)
 
 	check = "10PEC";
 	i = 0;
-	len = ft_strlen(line);
+	len = ft_len(line);
 	if (len > 1 && ft_strchr(line, '\n'))
-		line[--len] = '\0';
-	if (len != x || line[len - 1] != '1' || line[0] != '1')
-		error("error2\n");
+		line[len] = '\0';
+	if (len != max || line[len - 1] != '1' || line[0] != '1')
+		error("the map doesn't srounded by walls\n");
 	while (line && line[i])
 	{
 		j = 0;
@@ -61,7 +63,7 @@ void check_char(char *line, int x)
 			j++;
 		}
 		if (check[j] == '\0')
-			error("error3\n");
+			error("undefined character\n");
 		i++;
 	}
 }
@@ -74,12 +76,27 @@ void check_start_end(char *line)
 	while (line && (line[i] != '\n' && line[i]))
 	{
 		if (line[i] != '1')
-			error("error6\n");
+			error("no walls in start and end\n");
 		i++;
 	}
 }
 
-t_coor map_arr(char *file_name)
+void set_default(t_coor *coor, t_count *count, int *fd, char *filename)
+{
+	coor->x = 0;
+	coor->y = 0;
+	coor->file = NULL;
+	count->n_C = 0;
+	count->n_P = 0;
+	count->n_E = 0;
+	*fd = open(filename, O_RDONLY);
+	if (*fd < 0)
+		error("can't open the file\n");
+}
+
+
+
+t_coor map_checker(char *filename)
 {
 	int fd;
 	char *line;
@@ -87,30 +104,33 @@ t_coor map_arr(char *file_name)
 	t_coor coor;
 	t_count count;
 
-	coor.x = 0;
-	coor.y = 0;
-	count.n_C = 0;
-	count.n_P = 0;
-	count.n_E = 0;
-	fd = open(file_name, O_RDONLY);
-	if (fd < 0)
-		error("error1\n");
+	set_default(&coor, &count, &fd, filename);
 	line = get_next_line(fd);
 	check_start_end(line);
-	coor.x = ft_strlen(line) - 1;
-	while (line)
+	coor.x = ft_len(line);
+	while (line && ft_len(line) == coor.x)
 	{
 		check_char(line, coor.x);
 		count_char(&count, line);
+		tmp = coor.file;
+		coor.file = ft_strjoin(coor.file, line);
+		free(tmp);
 		tmp = line;
 		line = get_next_line(fd);
 		if ((line == NULL || line[0] == '\n'))
 			check_start_end(tmp);
+
 		free(tmp);
 		coor.y++;
 	}
-	if (coor.x == coor.y || coor.x == -1 || count.n_C < 1)
-		error("error5\n");
+	if (count.n_E != 1)
+		error("The number of E in the map does not match\n");
+	if (count.n_P != 1)
+		error("The number of P in the map does not match\n");
+	if (count.n_C < 1)
+		error("The number of C in the map does not match\n");
+	if (coor.x == -1)
+		error("error\n");
 	close(fd);
 	return (coor);
 }

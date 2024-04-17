@@ -1,14 +1,17 @@
 CC = cc 
 NAME = so_long
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address 
 SRC =	main.c \
-		map_functions.c
+		map_checker.c \
+		map_path.c \
+		
+
 libs= mylib/mylib.a
 
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c so_long.h
-	$(CC) -Imlx -c $< -o $@
+	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 all: $(NAME)
 
@@ -16,7 +19,7 @@ $(libs):
 	make -C mylib
 
 $(NAME): $(OBJ) $(libs)
-	$(CC) $(OBJ) $(libs) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ)  $(libs) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 tests = test.c
 TOBJ=$(tests:.c=.o)
