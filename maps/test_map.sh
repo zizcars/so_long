@@ -1,14 +1,14 @@
 #!/bin/bash
-echo "test 1:"
+echo "test 1: valid"
 .././so_long map.ber
 
-echo "test 2: "
+echo "test 2: valid"
 .././so_long map1.ber
 
-echo "test 3:"
+echo "test 3: invalid"
 .././so_long map2.ber
 
-echo "test 4:"
+echo "test 4: "
 .././so_long map3.ber
 
 echo "test 5:"

@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:54:44 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/17 15:51:24 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:16:12 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ void *ft_malloc(size_t size)
     return (p);
 }
 
-t_map_cpy map_arr(char *filename, t_coor *map_size)
+void	map_arr(char *filename, t_mlx *map)
 {
-	t_map_cpy map;
 	int x;
 	int y;
 	int i;
@@ -34,7 +33,6 @@ t_map_cpy map_arr(char *filename, t_coor *map_size)
 	i = 0;
 	y = 0;
 	*map_size = map_checker(filename);
-	// ft_printf("Ssjsdf");
 	map.map = ft_malloc(sizeof(char *) * map_size->y);
 	map.cpy = ft_malloc(sizeof(char *) * map_size->y);
 	while (y < map_size->y)
@@ -106,11 +104,10 @@ void check_map(char **cpy, t_coor map_size)
 
 void check_path(char *filename)
 {
-	t_map_cpy map;
-	t_coor place_P;
-	t_coor map_size;
+	t_mlx map;
+	t_position place_P;
 
-	map = map_arr(filename, &map_size);
+	map = map_arr(filename, &map);
 	// ft_printf("map check\n");
 	find_char(map.cpy, map_size, 'P', &place_P);
 	// ft_printf("Place_P:(%d,%d)\n", place_P.x, place_P.y);

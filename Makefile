@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 SRC =	main.c \
 		map_checker.c \
 		map_path.c \
-		
+		map.c 
 
 libs= mylib/mylib.a
 

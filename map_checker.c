@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/17 16:30:40 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:16:46 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,21 @@ void set_default(t_coor *coor, t_count *count, int *fd, char *filename)
 		error("can't open the file\n");
 }
 
+int all_one(char *line)
+{
+	int i;
 
+	i = 0;
+	while (line[i] && line[i] != '\n')
+	{
+		if (line[i] != '1')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
-t_coor map_checker(char *filename)
+t_mlx map_checker(char *filename)
 {
 	int fd;
 	char *line;
@@ -108,7 +120,7 @@ t_coor map_checker(char *filename)
 	line = get_next_line(fd);
 	check_start_end(line);
 	coor.x = ft_len(line);
-	while (line && ft_len(line) == coor.x)
+	while (line)
 	{
 		check_char(line, coor.x);
 		count_char(&count, line);
@@ -117,9 +129,8 @@ t_coor map_checker(char *filename)
 		free(tmp);
 		tmp = line;
 		line = get_next_line(fd);
-		if ((line == NULL || line[0] == '\n'))
+		if (line == NULL)
 			check_start_end(tmp);
-
 		free(tmp);
 		coor.y++;
 	}
@@ -131,6 +142,8 @@ t_coor map_checker(char *filename)
 		error("The number of C in the map does not match\n");
 	if (coor.x == -1)
 		error("error\n");
+	// else
+	// 	ft_printf("all good\n");
 	close(fd);
 	return (coor);
 }
