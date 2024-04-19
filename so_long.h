@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:45 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/18 16:15:01 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:58:26 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include <stdlib.h>
 
 #define STDERR 0
-#define SIZE 32
+
 typedef struct s_count
 {
 	int n_C;
@@ -36,12 +36,6 @@ typedef struct s_position
 	int y;
 }	t_position;
 
-// typedef struct s_map_cpy
-// {
-// 	char **map;
-// 	char **cpy;
-// } t_map_cpy;
-
 typedef struct s_mlx
 {
 	void *mlx;
@@ -49,21 +43,35 @@ typedef struct s_mlx
 	void *img;
 	char **map;
 	char **cpy;
-	// int x_win;
-	// int y_win;
 	int size_win_x;
 	int size_win_y;
+	int size_x;
+	int size_y;
 	int size_img;
 	char *file;
 	
 } t_mlx;
 
+/*------------------main---------------------*/
 void		error(char *error_message);
-t_mlx		map_checker(char *filename);
-void		check_path(char *filename);
-t_mlx		map_arr(char *filename, t_mlx *coor);
-int			ft_len(char *line);
-void		gra_map(t_mlx *map, t_mlx *mlx, t_mlx *coor);
-void		create_bas(char *filename, t_mlx *map, t_mlx *mlx, t_mlx *coor);
+
+/*------------------map_checker---------------------*/
+int ft_len(char *line);
+void count_char(t_count *count, char *line);
+void check_char(char *line, int max);
+void check_start_end(char *line);
+void map_checker(char *filename, t_mlx *mlx);
+
+/*------------------map_path---------------------*/
+void *ft_malloc(size_t size);
+void map_arr(t_mlx *mlx);
+t_position find_P(t_mlx *mlx);
+void change_one(t_mlx *mlx, int x, int y);
+void check_map(t_mlx *mlx);
+void check_path(t_mlx *mlx);
+
+/*------------------map---------------------*/
+void create_base(t_mlx *mlx);
+void gra_map(t_mlx *mlx);
 
 #endif

@@ -6,12 +6,15 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/18 16:16:46 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:50:12 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/// @brief length of a line (end with /n or \0) 
+/// @param line 
+/// @return length
 int ft_len(char *line)
 {
 	int len;
@@ -22,6 +25,9 @@ int ft_len(char *line)
 	return (len);
 }
 
+/// @brief count who many C E P in a line
+/// @param count place to store C E P
+/// @param line 
 void count_char(t_count *count, char *line)
 {
 	int i;
@@ -39,6 +45,9 @@ void count_char(t_count *count, char *line)
 	}
 }
 
+/// @brief check if the line is valid
+/// @param line 
+/// @param max 
 void check_char(char *line, int max)
 {
 	char *check;
@@ -68,6 +77,8 @@ void check_char(char *line, int max)
 	}
 }
 
+/// @brief check if first line and last line all ones
+/// @param line
 void check_start_end(char *line)
 {
 	int i;
@@ -81,58 +92,38 @@ void check_start_end(char *line)
 	}
 }
 
-void set_default(t_coor *coor, t_count *count, int *fd, char *filename)
+/// @brief check the map is valid or not and calculte the size of map and store it in file variable
+/// @param filename 
+/// @param mlx 
+void map_checker(char *filename, t_mlx *mlx)
 {
-	coor->x = 0;
-	coor->y = 0;
-	coor->file = NULL;
-	count->n_C = 0;
-	count->n_P = 0;
-	count->n_E = 0;
-	*fd = open(filename, O_RDONLY);
-	if (*fd < 0)
-		error("can't open the file\n");
-}
-
-int all_one(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line[i] && line[i] != '\n')
-	{
-		if (line[i] != '1')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-t_mlx map_checker(char *filename)
-{
-	int fd;
-	char *line;
-	char *tmp;
-	t_coor coor;
+	int		fd;
+	char	*line;
+	char	*tmp;
 	t_count count;
 
-	set_default(&coor, &count, &fd, filename);
+	count.n_C = 0;
+	count.n_E = 0;
+	count.n_P = 0;
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		error("can't open the file\n");
 	line = get_next_line(fd);
 	check_start_end(line);
-	coor.x = ft_len(line);
+	mlx->size_x = ft_len(line);
 	while (line)
 	{
-		check_char(line, coor.x);
+		check_char(line, mlx->size_x);
 		count_char(&count, line);
-		tmp = coor.file;
-		coor.file = ft_strjoin(coor.file, line);
+		tmp = mlx->file;
+		mlx->file = ft_strjoin(mlx->file, line);
 		free(tmp);
 		tmp = line;
 		line = get_next_line(fd);
 		if (line == NULL)
 			check_start_end(tmp);
 		free(tmp);
-		coor.y++;
+		mlx->size_y++;
 	}
 	if (count.n_E != 1)
 		error("The number of E in the map does not match\n");
@@ -140,10 +131,7 @@ t_mlx map_checker(char *filename)
 		error("The number of P in the map does not match\n");
 	if (count.n_C < 1)
 		error("The number of C in the map does not match\n");
-	if (coor.x == -1)
+	if (mlx->size_x == -1)
 		error("error\n");
-	// else
-	// 	ft_printf("all good\n");
 	close(fd);
-	return (coor);
 }

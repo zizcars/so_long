@@ -1,6 +1,7 @@
 #include "so_long.h"
 #include <stdio.h>
 #include <mlx.h>
+
 // // #define X 50
 // // #define Y 50
 // // #define PI 3.14
@@ -129,7 +130,6 @@
 // // 	mlx_loop_hook();
 // // 	return 0;
 // // }
-
 // typedef struct s_pa
 // {
 // 	void *mlx;
@@ -193,18 +193,15 @@
 // 	// printf("a:%d\n",a);
 // 	mlx_loop(param.mlx);
 // }
-
 // int main()
 // {
 //     void *mlx;
 //     void *win, *img;
 // 	int width, height;
-
 // 	width = 32;
 // 	height = 32;
 // 	mlx = mlx_init();
 // 	win = mlx_new_window(mlx, 500, 500, "so_long");
-
 //     img = mlx_xpm_file_to_image(mlx, "textures/env/ground.xpm", &width , &height);
 //     mlx_put_image_to_window(mlx, win, img, 50, 50);
 //     mlx_loop(mlx);

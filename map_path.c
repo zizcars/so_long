@@ -6,14 +6,15 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:54:44 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/18 16:16:12 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:50:50 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
-
+/// @brief allocate memory and protacte your allocation
+/// @param size 
+/// @return the address of allocation
 void *ft_malloc(size_t size)
 {
     void *p;
@@ -24,77 +25,58 @@ void *ft_malloc(size_t size)
     return (p);
 }
 
-void	map_arr(char *filename, t_mlx *map)
+/// @brief find p in map
+/// @param mlx 
+/// @return coordonte of the P in map
+t_position	find_P(t_mlx *mlx)
 {
-	int x;
-	int y;
-	int i;
+	t_position c_position;
 
-	i = 0;
-	y = 0;
-	*map_size = map_checker(filename);
-	map.map = ft_malloc(sizeof(char *) * map_size->y);
-	map.cpy = ft_malloc(sizeof(char *) * map_size->y);
-	while (y < map_size->y)
-	{
-		x = 0;
-		map.map[y] = ft_malloc(sizeof(char) * (map_size->x + 1));
-		map.cpy[y] = ft_malloc(sizeof(char) * (map_size->x + 1));
-		while(x < map_size->x)
-		{
-			map.map[y][x] = map_size->file[i];
-			map.cpy[y][x] = map_size->file[i];
-			x++;
-			i++;
-		}
-		map.map[y][x] = '\0';
-		map.cpy[y][x] = '\0';
-		y++;
-	}
-	return (map);
-}
-
-void find_char(char **map, t_coor map_size, char c, t_coor *place_c)
-{
-	place_c->file = NULL;
-	place_c->y = 0;
-	while (place_c->y < map_size.y)
+	c_position.y = 0;
+	while (c_position.y < mlx->size_y)
 	{	
-		place_c->x = 0;
-		while(place_c->x < map_size.x)
+		c_position.x = 0;
+		while(c_position.x < mlx->size_x)
 		{
-			if (map[place_c->y][place_c->x] == c)
-				return;
-			place_c->x++;
+			if (mlx->map[c_position.y][c_position.x] == 'P')
+				return (c_position);
+			c_position.x++;
 		}
-		place_c->y++;
+		c_position.y++;
 	}
+	return (c_position);
 }
 
-void change_one(char ***cpy, int x, int y, t_coor map_size)
+/// @brief change the cpy of map to 1
+/// @param mlx 
+/// @param x
+/// @param y 
+void change_one(t_mlx *mlx, int x, int y)
 {
-	if ((*cpy)[y][x] == '1' || ( 0 > x || x > map_size.x) || (map_size.y < y || y < 0) )
+	if (mlx->cpy[y][x] == '1' || ( 0 > x || x > mlx->size_x) || (mlx->size_y < y || y < 0))
 		return;
 	else
-		(*cpy)[y][x] = '1';
-	change_one(cpy, x + 1, y, map_size);
-	change_one(cpy, x - 1, y, map_size);
-	change_one(cpy, x, y + 1, map_size);
-	change_one(cpy, x, y - 1, map_size);
+		mlx->cpy[y][x] = '1';
+	change_one(mlx, x + 1, y);
+	change_one(mlx, x - 1, y);
+	change_one(mlx, x, y + 1);
+	change_one(mlx, x, y - 1);
 }
 
-void check_map(char **cpy, t_coor map_size)
+/// @brief search for P or C or E
+/// @param mlx 
+void check_map(t_mlx *mlx)
 {
 	int x;
 	int y;
 
 	y = 0;
-	while (y < map_size.y)
+	while (y < mlx->size_y)
 	{
 		x = 0;
-		while (x < map_size.x)
+		while (x < mlx->size_x)
 		{
-			if (cpy[y][x] == 'P' || cpy[y][x] == 'C' || cpy[y][x] == 'E')
+			if (mlx->cpy[y][x] == 'P' || mlx->cpy[y][x] == 'C' || mlx->cpy[y][x] == 'E')
 				error("No path found\n");
 			x++;
 		}
@@ -102,15 +84,13 @@ void check_map(char **cpy, t_coor map_size)
 	}
 }
 
-void check_path(char *filename)
+/// @brief check if the path is valid or not
+/// @param mlx 
+void check_path(t_mlx *mlx)
 {
-	t_mlx map;
 	t_position place_P;
 
-	map = map_arr(filename, &map);
-	// ft_printf("map check\n");
-	find_char(map.cpy, map_size, 'P', &place_P);
-	// ft_printf("Place_P:(%d,%d)\n", place_P.x, place_P.y);
-	change_one(&map.cpy, place_P.x, place_P.y, map_size);
-	check_map(map.cpy, map_size);
+	place_P = find_P(mlx);
+	change_one(mlx, place_P.x, place_P.y);
+	check_map(mlx);
 }
