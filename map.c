@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:12:12 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/19 12:57:18 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:15:57 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void create_base(t_mlx *mlx)
 	int y;
 
 	y = 0;
-	mlx->size_win_x = mlx->size_x * 64;
-	mlx->size_win_y = mlx->size_y * 64;
-	mlx->win = mlx_new_window(mlx->mlx, mlx->size_win_x, mlx->size_win_y, "so_long");
+	
 	while (y < mlx->size_y)
 	{
 		x = 0;
@@ -37,7 +35,7 @@ void create_base(t_mlx *mlx)
 	}
 }
 
-void gra_map(t_mlx *mlx)
+void display_map(t_mlx *mlx)
 {
 	int x;
 	int y;
@@ -83,4 +81,5 @@ void gra_map(t_mlx *mlx)
 		}
 		y++;
 	}
+	mlx_key_hook(mlx->win, moves, (void *)mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/19 12:50:12 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:57:28 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int ft_len(char *line)
 /// @brief count who many C E P in a line
 /// @param count place to store C E P
 /// @param line 
-void count_char(t_count *count, char *line)
+void count_char(t_mlx *mlx, char *line)
 {
 	int i;
 
@@ -36,11 +36,11 @@ void count_char(t_count *count, char *line)
 	while (line && line[i])
 	{
 		if (line[i] == 'C')
-			count->n_C += 1;
+			mlx->n_C += 1;
 		else if (line[i] == 'E')
-			(count->n_E) += 1;
+			(mlx->n_E) += 1;
 		else if (line[i] == 'P')
-			(count->n_P) += 1;
+			(mlx->n_P) += 1;
 		i++;
 	}
 }
@@ -100,11 +100,8 @@ void map_checker(char *filename, t_mlx *mlx)
 	int		fd;
 	char	*line;
 	char	*tmp;
-	t_count count;
 
-	count.n_C = 0;
-	count.n_E = 0;
-	count.n_P = 0;
+
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		error("can't open the file\n");
@@ -114,7 +111,7 @@ void map_checker(char *filename, t_mlx *mlx)
 	while (line)
 	{
 		check_char(line, mlx->size_x);
-		count_char(&count, line);
+		count_char(mlx, line);
 		tmp = mlx->file;
 		mlx->file = ft_strjoin(mlx->file, line);
 		free(tmp);
@@ -125,11 +122,11 @@ void map_checker(char *filename, t_mlx *mlx)
 		free(tmp);
 		mlx->size_y++;
 	}
-	if (count.n_E != 1)
+	if (mlx->n_E != 1)
 		error("The number of E in the map does not match\n");
-	if (count.n_P != 1)
+	if (mlx->n_P != 1)
 		error("The number of P in the map does not match\n");
-	if (count.n_C < 1)
+	if (mlx->n_C < 1)
 		error("The number of C in the map does not match\n");
 	if (mlx->size_x == -1)
 		error("error\n");

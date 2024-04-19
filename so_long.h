@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:45 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/19 12:58:26 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:28:33 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,6 @@
 
 #define STDERR 0
 
-typedef struct s_count
-{
-	int n_C;
-	int n_P;
-	int n_E;
-} t_count;
-
-typedef struct s_position
-{
-	int x;
-	int y;
-}	t_position;
-
 typedef struct s_mlx
 {
 	void *mlx;
@@ -49,7 +36,13 @@ typedef struct s_mlx
 	int size_y;
 	int size_img;
 	char *file;
-	
+	int n_C;
+	int n_P;
+	int n_E;
+	int x_P;
+	int y_P;
+	int x_E;
+	int y_E;
 } t_mlx;
 
 /*------------------main---------------------*/
@@ -57,7 +50,7 @@ void		error(char *error_message);
 
 /*------------------map_checker---------------------*/
 int ft_len(char *line);
-void count_char(t_count *count, char *line);
+void count_char(t_mlx *mlx, char *line);
 void check_char(char *line, int max);
 void check_start_end(char *line);
 void map_checker(char *filename, t_mlx *mlx);
@@ -65,13 +58,16 @@ void map_checker(char *filename, t_mlx *mlx);
 /*------------------map_path---------------------*/
 void *ft_malloc(size_t size);
 void map_arr(t_mlx *mlx);
-t_position find_P(t_mlx *mlx);
+void	find_P(t_mlx *mlx, int *x, int *y, char c);
 void change_one(t_mlx *mlx, int x, int y);
 void check_map(t_mlx *mlx);
 void check_path(t_mlx *mlx);
 
 /*------------------map---------------------*/
 void create_base(t_mlx *mlx);
-void gra_map(t_mlx *mlx);
+void display_map(t_mlx *mlx);
 
+/*------------------moves---------------------*/
+void move_right(t_mlx *mlx);
+int moves(int keycode, void *param);
 #endif

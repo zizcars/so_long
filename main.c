@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:28 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/19 12:58:02 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:40:39 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,25 @@ void error(char *error_message)
 	exit(1);
 }
 
+void set_default(t_mlx *mlx)
+{
+	mlx->mlx = mlx_init();
+	mlx->win = NULL;
+	mlx->cpy = NULL;
+	mlx->file = NULL;
+	mlx->img = NULL;
+	mlx->map = NULL;
+	mlx->n_C = 0;
+	mlx->n_E = 0;
+	mlx->n_P = 0;
+	mlx->size_win_x = 0;
+	mlx->size_win_y = 0;
+	mlx->size_x = 0;
+	mlx->size_y = 0;
+	mlx->x_E = 0;
+	mlx->y_E = 0;
+}
+
 int main(int argc, char **argv)
 {
 	t_mlx mlx;
@@ -58,10 +77,15 @@ int main(int argc, char **argv)
 	mlx.size_img = 64;
 	if (argc != 2)
 		error("Enter a map <*.ber>");
+	set_default(&mlx);
 	map_checker(argv[1], &mlx);
 	map_arr(&mlx);
 	check_path(&mlx);
-	mlx.mlx = mlx_init();
-	gra_map(&mlx);
+	find_P(&mlx, &(mlx.x_E), &(mlx.y_E), 'E');
+	mlx.size_win_x = mlx.size_x * 64;
+	mlx.size_win_y = mlx.size_y * 64;
+	mlx.win = mlx_new_window(mlx.mlx, mlx.size_win_x, mlx.size_win_y, "so_long");
+	display_map(&mlx);
+	
 	mlx_loop(mlx.mlx);
 }
