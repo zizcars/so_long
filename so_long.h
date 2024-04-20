@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:45 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/19 16:28:33 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/20 12:59:45 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_mlx
 {
 	void *mlx;
 	void *win;
-	void *img;
+	void *img[5];
 	char **map;
 	char **cpy;
 	int size_win_x;
@@ -36,18 +36,24 @@ typedef struct s_mlx
 	int size_y;
 	int size_img;
 	char *file;
-	int n_C;
-	int n_P;
-	int n_E;
-	int x_P;
-	int y_P;
-	int x_E;
-	int y_E;
+	int n_c;
+	int n_p;
+	int n_e;
+	int x_p;
+	int y_p;
+	int x_e;
+	int y_e;
+	int moves;
 } t_mlx;
 
 /*------------------main---------------------*/
-void		error(char *error_message);
+/// @brief print error  in stderr and exit with 1
+/// @param error_message
+void	error(char *error_message);
 
+/// @brief convert from string to 2D array
+/// @param mlx
+void	create_map(t_mlx *mlx);
 /*------------------map_checker---------------------*/
 int ft_len(char *line);
 void count_char(t_mlx *mlx, char *line);
@@ -70,4 +76,10 @@ void display_map(t_mlx *mlx);
 /*------------------moves---------------------*/
 void move_right(t_mlx *mlx);
 int moves(int keycode, void *param);
+
+/*------------------image.c---------------------*/
+/// @brief set img to it default values
+/// @param mlx 
+void mlx_img(t_mlx *mlx);
+
 #endif

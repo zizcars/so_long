@@ -6,12 +6,32 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:12:12 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/19 16:15:57 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/20 12:56:26 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+
+
+void mlx_img(t_mlx *mlx)
+{
+	mlx->img[0] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/ground2.xpm", &mlx->size_img, &mlx->size_img);
+	if (mlx->img[0] == NULL)
+		error("invalid image <textures/env/ground2.xpm>\n");
+	mlx->img[1] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/wall.xpm", &mlx->size_img, &mlx->size_img);
+	if (mlx->img[1] == NULL)
+		error("invalid image <textures/env/wall.xpm>\n");
+	mlx->img[2] = mlx_xpm_file_to_image(mlx->mlx, "textures/player/dir/down/down0.xpm", &mlx->size_img, &mlx->size_img);
+	if (mlx->img[2] == NULL)
+		error("invalid image <textures/player/dir/down/down0.xpm>\n");
+	mlx->img[3] = mlx_xpm_file_to_image(mlx->mlx, "textures/collectible/coin0.xpm", &mlx->size_img, &mlx->size_img);
+	if (mlx->img[3] == NULL)
+		error("invalid image <textures/collectible/coin0.xpm>\n");
+	mlx->img[4] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/exit1.xpm", &mlx->size_img, &mlx->size_img);
+	if (mlx->img[4] == NULL)
+		error("invalid image\n");
+}
 
 /// @brief display ground
 /// @param mlx 
@@ -27,8 +47,7 @@ void create_base(t_mlx *mlx)
 		x = 0;
 		while (x < mlx->size_x)
 		{
-			mlx->img = mlx_xpm_file_to_image(mlx->mlx, "textures/env/ground2.xpm", &mlx->size_img, &mlx->size_img);
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, x * 64, y * 64);
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[0], x * 64, y * 64);
 			x++;
 		}
 		y++;
@@ -39,6 +58,7 @@ void display_map(t_mlx *mlx)
 {
 	int x;
 	int y;
+	int i;
 
 	y = 0;
 	create_base(mlx);
@@ -48,38 +68,22 @@ void display_map(t_mlx *mlx)
 		while (x < mlx->size_x)
 		{
 			if ((mlx->map)[y][x] == '1')
-			{
-				mlx->img = mlx_xpm_file_to_image(mlx->mlx, "textures/env/wall.xpm", &mlx->size_img, &mlx->size_img);
-				if (mlx->img == NULL)
-					error("invalid image\n");
-			}
+				i = 1;
 			else if ((mlx->map)[y][x] == 'P')
-			{
-				mlx->img = mlx_xpm_file_to_image(mlx->mlx, "textures/player/dir/down/down0.xpm", &mlx->size_img, &mlx->size_img);
-				if (mlx->img == NULL)
-					error("invalid image\n");
-			}
+				i = 2;
 			else if ((mlx->map)[y][x] == 'C')
-			{
-				mlx->img = mlx_xpm_file_to_image(mlx->mlx, "textures/collectible/coin0.xpm", &mlx->size_img, &mlx->size_img);
-				if (mlx->img == NULL)
-					error("invalid image\n");
-			}
+				i = 3;
 			else if ((mlx->map)[y][x] == 'E')
-			{
-				mlx->img = mlx_xpm_file_to_image(mlx->mlx, "textures/env/exit1.xpm", &mlx->size_img, &mlx->size_img);
-				if (mlx->img == NULL)
-					error("invalid image\n");
-			}
+				i = 4;
 			else
 			{
 				x++;
 				continue;
 			}
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, x * 64, y * 64);
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[i], x * 64, y * 64);
 			x++;
 		}
 		y++;
 	}
-	mlx_key_hook(mlx->win, moves, (void *)mlx);
+
 }

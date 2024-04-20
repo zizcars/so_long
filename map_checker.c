@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/19 15:57:28 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:00:46 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void count_char(t_mlx *mlx, char *line)
 	while (line && line[i])
 	{
 		if (line[i] == 'C')
-			mlx->n_C += 1;
+			mlx->n_c += 1;
 		else if (line[i] == 'E')
-			(mlx->n_E) += 1;
+			(mlx->n_e) += 1;
 		else if (line[i] == 'P')
-			(mlx->n_P) += 1;
+			(mlx->n_p) += 1;
 		i++;
 	}
 }
@@ -122,11 +122,11 @@ void map_checker(char *filename, t_mlx *mlx)
 		free(tmp);
 		mlx->size_y++;
 	}
-	if (mlx->n_E != 1)
+	if (mlx->n_e != 1)
 		error("The number of E in the map does not match\n");
-	if (mlx->n_P != 1)
+	if (mlx->n_p != 1)
 		error("The number of P in the map does not match\n");
-	if (mlx->n_C < 1)
+	if (mlx->n_c < 1)
 		error("The number of C in the map does not match\n");
 	if (mlx->size_x == -1)
 		error("error\n");
