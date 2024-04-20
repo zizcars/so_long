@@ -6,15 +6,13 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:28 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/19 12:58:02 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:37:15 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-/// @brief convert from string to 2D array
-/// @param mlx 
-void	map_arr(t_mlx *mlx)
+void create_map(t_mlx *mlx)
 {
 	int x;
 	int y;
@@ -29,7 +27,7 @@ void	map_arr(t_mlx *mlx)
 		x = 0;
 		mlx->map[y] = ft_malloc(sizeof(char) * (mlx->size_x + 1));
 		mlx->cpy[y] = ft_malloc(sizeof(char) * (mlx->size_x + 1));
-		while(x < mlx->size_x)
+		while (x < mlx->size_x)
 		{
 			mlx->map[y][x] = mlx->file[i];
 			mlx->cpy[y][x] = mlx->file[i];
@@ -42,13 +40,39 @@ void	map_arr(t_mlx *mlx)
 	}
 }
 
-
-/// @brief print error  in stderr and exit with 1
-/// @param error_message 
 void error(char *error_message)
 {
 	write(STDERR, error_message, ft_strlen(error_message));
 	exit(1);
+}
+
+void set_default(t_mlx *mlx)
+{
+	mlx->mlx = mlx_init();
+	mlx->win = NULL;
+	mlx->cpy = NULL;
+	mlx->file = NULL;
+	mlx->map = NULL;
+	mlx->n_c = 0;
+	mlx->n_e = 0;
+	mlx->n_p = 0;
+	mlx->size_win_x = 0;
+	mlx->size_win_y = 0;
+	mlx->size_x = 0;
+	mlx->size_y = 0;
+	mlx->x_e = 0;
+	mlx->y_e = 0;
+	mlx->moves = 0;
+}
+
+int mouse(void *param)
+{
+	t_mlx *mlx;
+
+	mlx = (t_mlx *)param;
+	mlx_destroy_window(mlx->mlx, mlx->win);
+	exit(0);
+	return (0);
 }
 
 int main(int argc, char **argv)
@@ -58,10 +82,17 @@ int main(int argc, char **argv)
 	mlx.size_img = 64;
 	if (argc != 2)
 		error("Enter a map <*.ber>");
+	set_default(&mlx);
 	map_checker(argv[1], &mlx);
-	map_arr(&mlx);
+	create_map(&mlx);
 	check_path(&mlx);
-	mlx.mlx = mlx_init();
-	gra_map(&mlx);
+	find_P(&mlx, &(mlx.x_e), &(mlx.y_e), 'E');
+	mlx.size_win_x = mlx.size_x * 64;
+	mlx.size_win_y = mlx.size_y * 64;
+	mlx.win = mlx_new_window(mlx.mlx, mlx.size_win_x, mlx.size_win_y, "so_long");
+	mlx_img(&mlx);
+	display_map(&mlx);
+	mlx_hook(mlx.win, 2, 1L << 0, moves, (void *)&mlx);
+	mlx_hook(mlx.win, 17, 0, mouse, (void *)&mlx);
 	mlx_loop(mlx.mlx);
 }
