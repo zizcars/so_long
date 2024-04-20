@@ -6,16 +6,13 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:54:44 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/19 16:27:49 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:26:38 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-/// @brief allocate memory and protacte your allocation
-/// @param size
-/// @return the address of allocation
-void *ft_malloc(size_t size)
+void	*ft_malloc(size_t size)
 {
 	void *p;
 
@@ -25,10 +22,7 @@ void *ft_malloc(size_t size)
 	return (p);
 }
 
-/// @brief find p in map
-/// @param mlx
-/// @return coordonte of the P in map
-void find_P(t_mlx *mlx, int *x, int *y, char c)
+void	find_P(t_mlx *mlx, int *x, int *y, char c)
 {
 	*y = 0;
 	while (*y < mlx->size_y)
@@ -44,14 +38,10 @@ void find_P(t_mlx *mlx, int *x, int *y, char c)
 	}
 }
 
-/// @brief change the cpy of map to 1
-/// @param mlx
-/// @param x
-/// @param y
-void change_one(t_mlx *mlx, int x, int y)
+void	change_one(t_mlx *mlx, int x, int y)
 {
 	if (mlx->cpy[y][x] == '1' || (0 > x || x > mlx->size_x) || (mlx->size_y < y || y < 0))
-		return;
+		return ;
 	else
 		mlx->cpy[y][x] = '1';
 	change_one(mlx, x + 1, y);
@@ -60,12 +50,10 @@ void change_one(t_mlx *mlx, int x, int y)
 	change_one(mlx, x, y - 1);
 }
 
-/// @brief search for P or C or E
-/// @param mlx
-void check_map(t_mlx *mlx)
+void	check_map(t_mlx *mlx)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < mlx->size_y)
@@ -81,12 +69,10 @@ void check_map(t_mlx *mlx)
 	}
 }
 
-/// @brief check if the path is valid or not
-/// @param mlx
-void check_path(t_mlx *mlx)
+void	check_path(t_mlx *mlx)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	find_P(mlx, &x, &y, 'P');
 	change_one(mlx, x, y);

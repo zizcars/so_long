@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   display_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:12:12 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/20 12:56:26 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:31:26 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
-
-void mlx_img(t_mlx *mlx)
+void	mlx_img(t_mlx *mlx)
 {
 	mlx->img[0] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/ground2.xpm", &mlx->size_img, &mlx->size_img);
 	if (mlx->img[0] == NULL)
@@ -33,15 +31,12 @@ void mlx_img(t_mlx *mlx)
 		error("invalid image\n");
 }
 
-/// @brief display ground
-/// @param mlx 
-void create_base(t_mlx *mlx)
+void	display_ground(t_mlx *mlx)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
-	
 	while (y < mlx->size_y)
 	{
 		x = 0;
@@ -54,36 +49,41 @@ void create_base(t_mlx *mlx)
 	}
 }
 
-void display_map(t_mlx *mlx)
+void	display_row(t_mlx *mlx, int y)
 {
-	int x;
-	int y;
-	int i;
+	int	x;
+	int	i;
+
+	x = 0;
+	while (x < mlx->size_x)
+	{
+		if ((mlx->map)[y][x] == '1')
+			i = 1;
+		else if ((mlx->map)[y][x] == 'P')
+			i = 2;
+		else if ((mlx->map)[y][x] == 'C')
+			i = 3;
+		else if ((mlx->map)[y][x] == 'E')
+			i = 4;
+		else
+		{
+			x++;
+			continue ;
+		}
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[i], x * 64, y * 64);
+		x++;
+	}
+}
+
+void	display_map(t_mlx *mlx)
+{
+	int	y;
 
 	y = 0;
-	create_base(mlx);
+	display_ground(mlx);
 	while (y < mlx->size_y)
 	{
-		x = 0;
-		while (x < mlx->size_x)
-		{
-			if ((mlx->map)[y][x] == '1')
-				i = 1;
-			else if ((mlx->map)[y][x] == 'P')
-				i = 2;
-			else if ((mlx->map)[y][x] == 'C')
-				i = 3;
-			else if ((mlx->map)[y][x] == 'E')
-				i = 4;
-			else
-			{
-				x++;
-				continue;
-			}
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[i], x * 64, y * 64);
-			x++;
-		}
+		display_row(mlx, y);
 		y++;
 	}
-
 }

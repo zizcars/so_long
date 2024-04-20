@@ -6,12 +6,11 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:28 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/20 13:00:14 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:37:15 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
 
 void create_map(t_mlx *mlx)
 {
@@ -40,7 +39,6 @@ void create_map(t_mlx *mlx)
 		y++;
 	}
 }
-
 
 void error(char *error_message)
 {

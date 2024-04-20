@@ -6,18 +6,15 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/20 13:00:46 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:15:16 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-/// @brief length of a line (end with /n or \0) 
-/// @param line 
-/// @return length
-int ft_len(char *line)
+int	ft_len(char *line)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (line && line[len] && line[len] != '\n')
@@ -25,12 +22,9 @@ int ft_len(char *line)
 	return (len);
 }
 
-/// @brief count who many C E P in a line
-/// @param count place to store C E P
-/// @param line 
-void count_char(t_mlx *mlx, char *line)
+void	count_char(t_mlx *mlx, char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line && line[i])
@@ -45,15 +39,12 @@ void count_char(t_mlx *mlx, char *line)
 	}
 }
 
-/// @brief check if the line is valid
-/// @param line 
-/// @param max 
-void check_char(char *line, int max)
+void	check_char(char *line, int max)
 {
-	char *check;
-	int i;
-	int j;
-	int len;
+	char	*check;
+	int		i;
+	int		j;
+	int		len;
 
 	check = "10PEC";
 	i = 0;
@@ -68,7 +59,7 @@ void check_char(char *line, int max)
 		while (check[j])
 		{
 			if (check[j] == line[i])
-				break;
+				break ;
 			j++;
 		}
 		if (check[j] == '\0')
@@ -77,11 +68,9 @@ void check_char(char *line, int max)
 	}
 }
 
-/// @brief check if first line and last line all ones
-/// @param line
-void check_start_end(char *line)
+void	check_start_end(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line && (line[i] != '\n' && line[i]))
@@ -92,19 +81,11 @@ void check_start_end(char *line)
 	}
 }
 
-/// @brief check the map is valid or not and calculte the size of map and store it in file variable
-/// @param filename 
-/// @param mlx 
-void map_checker(char *filename, t_mlx *mlx)
+void	map_reader(t_mlx *mlx, int fd)
 {
-	int		fd;
-	char	*line;
 	char	*tmp;
+	char	*line;
 
-
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		error("can't open the file\n");
 	line = get_next_line(fd);
 	check_start_end(line);
 	mlx->size_x = ft_len(line);
@@ -122,6 +103,17 @@ void map_checker(char *filename, t_mlx *mlx)
 		free(tmp);
 		mlx->size_y++;
 	}
+}
+
+void	map_checker(char *filename, t_mlx *mlx)
+{
+	int		fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		error("can't open the file\n");
+	map_reader(mlx, fd);
+	close(fd);
 	if (mlx->n_e != 1)
 		error("The number of E in the map does not match\n");
 	if (mlx->n_p != 1)
@@ -130,5 +122,4 @@ void map_checker(char *filename, t_mlx *mlx)
 		error("The number of C in the map does not match\n");
 	if (mlx->size_x == -1)
 		error("error\n");
-	close(fd);
 }
