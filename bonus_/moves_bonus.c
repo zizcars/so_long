@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moves.c                                            :+:      :+:    :+:   */
+/*   moves_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:57:15 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/20 15:14:56 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/21 11:50:58 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void move_(t_mlx *mlx, int x, int y)
 {
@@ -33,12 +33,13 @@ void move_(t_mlx *mlx, int x, int y)
 		mlx->map[y][x] = 'P';
 		mlx->map[mlx->y_p][mlx->x_p] = '0';
 	}
+	else if (mlx->map[y][x] == '1')
+		return;
 	else
 		error("Game over\n");
 	if (mlx->map[mlx->y_e][mlx->x_e] == '0')
 		mlx->map[mlx->y_e][mlx->x_e] = 'E';
 	display_map(mlx);
-	ft_printf("moves:%d\n", mlx->moves);
 }
 
 int moves(int keycode, void *param)

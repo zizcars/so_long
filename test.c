@@ -45,55 +45,54 @@
 // 	mlx_loop(mlx);
 // }
 
-
-#include <mlx.h>
-#include <stdlib.h>
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-}				t_vars;
-int	close(int keycode, t_vars *vars)
-{
-	printf("Key pressed: %d\n", keycode);
-	if (keycode == 53) // ESC key
-	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		exit(0);
-	}
-	return (0);
-}
-int	resize(int x, int y, t_vars *vars)
-{
-	(void)x;
-	(void)y;
-	printf("Window resized\n");
-	return (0);
-}
-int	close_window(t_vars *vars)
-{
-	printf("Window closed\n");
-	exit(0);
-	return (0);
-}
-int keypress_s(int keycode, t_vars *vars)
-{
-	int i ;
-	i = 1000;
-	while (keycode && i != 0)
-		i--;
-	printf("i: %d\n", i);
-	return 0;
-}
-int	main(void)
-{
-	t_vars	vars;
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	mlx_hook(vars.win, 2, 1L<<0, keypress_s, &vars); // KeyPress event
-	mlx_hook(vars.win, 4, 1L<<0, resize, &vars); // ConfigureNotify event
-	mlx_hook(vars.win, 17, 1L<<17, close_window, &vars); // CloseNotify event
-	mlx_loop(vars.mlx);
-}
+// #include <mlx.h>
+// #include <stdlib.h>
+// typedef struct	s_vars {
+// 	void	*mlx;
+// 	void	*win;
+// }				t_vars;
+// int	close(int keycode, t_vars *vars)
+// {
+// 	printf("Key pressed: %d\n", keycode);
+// 	if (keycode == 53) // ESC key
+// 	{
+// 		mlx_destroy_window(vars->mlx, vars->win);
+// 		exit(0);
+// 	}
+// 	return (0);
+// }
+// int	resize(int x, int y, t_vars *vars)
+// {
+// 	(void)x;
+// 	(void)y;
+// 	printf("Window resized\n");
+// 	return (0);
+// }
+// int	close_window(t_vars *vars)
+// {
+// 	printf("Window closed\n");
+// 	exit(0);
+// 	return (0);
+// }
+// int keypress_s(int keycode, t_vars *vars)
+// {
+// 	int i ;
+// 	i = 1000;
+// 	while (keycode && i != 0)
+// 		i--;
+// 	printf("i: %d\n", i);
+// 	return 0;
+// }
+// int	main(void)
+// {
+// 	t_vars	vars;
+// 	vars.mlx = mlx_init();
+// 	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
+// 	mlx_hook(vars.win, 2, 1L<<0, keypress_s, &vars); // KeyPress event
+// 	mlx_hook(vars.win, 4, 1L<<0, resize, &vars); // ConfigureNotify event
+// 	mlx_hook(vars.win, 17, 1L<<17, close_window, &vars); // CloseNotify event
+// 	mlx_loop(vars.mlx);
+// }
 // #include <mlx.h>
 // #include <stdio.h>
 // int main(void)
@@ -208,77 +207,57 @@ int	main(void)
 //     mlx_loop(mlx);
 // }
 
-// #include <mlx.h>
+#include <mlx.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
+#define NUM_FRAMES 7
+#define FRAME_DELAY 1 // Delay between frames in microseconds
 
-// #define NUM_FRAMES 7
-// #define FRAME_DELAY 1 // Delay between frames in microseconds
+// Structure to hold information about the animation
+typedef struct
+{
+	void *mlx;
+	void *win;
+	void *images;
+	char *frames[NUM_FRAMES];
+	int current_frame;
+	int size_win;
+	int index;
+} Animation;
 
-// // Structure to hold information about the animation
-// typedef struct {
-//     void *mlx;
-//     void *win;
-//     void *images[NUM_FRAMES];
-//     char *frames[NUM_FRAMES];
-//     int current_frame;
-//     int size_win;
-// } Animation;
-
-// // Load XPM images
-// // Load XPM images
-// // Load XPM images
-// // Load XPM images
-// void load_images(Animation *animation) {
-//     for (int i = 0; i < NUM_FRAMES; i++) {
-//         animation->images[i] = mlx_xpm_file_to_image(animation->mlx, 
-//                                                      animation->frames[i],
-//                                                      NULL,
-//                                                      NULL);
-//     }
-// }
-
-
-
-// // Update the animation frame
-// void update_frame(Animation *animation) {
-//     animation->current_frame = (animation->current_frame + 1) % NUM_FRAMES;
-// }
-
-// // Draw the current frame
-// void draw_frame(Animation *animation) {
-//     mlx_put_image_to_window(animation->mlx,
-//                             animation->win,
-//                             animation->images[animation->current_frame],
-//                             0, 0);
-// }
-
-// // Main animation loop
-// void animate(Animation *animation) {
-//     while (1) {
-//         update_frame(animation);
-//         draw_frame(animation);
-//         mlx_loop_hook(animation->mlx, mlx_do_sync, animation->mlx);
-//         mlx_loop(animation->mlx);
-//         usleep(FRAME_DELAY); // Delay between frames
-//     }
-// }
-
-
-// int main() {
-//     // Initialize MLX
-//     Animation animation;
-//     animation.frames[0] = "textures/collectible/coin0.xpm";
-//     animation.frames[1] = "textures/collectible/coin1.xpm";
-//     animation.frames[2] = "textures/collectible/coin2.xpm";
-//     animation.frames[3] = "textures/collectible/coin3.xpm";
-//     animation.frames[4] = "textures/collectible/coin4.xpm";
-//     animation.frames[5] = "textures/collectible/coin5.xpm";
-//     animation.frames[6] = "textures/collectible/coin6.xpm";
-//     animation.mlx = mlx_init();
-//     animation.win = mlx_new_window(animation.mlx, 500, 500, "Animation");
-//     animation.current_frame = 0;
-
-//     // Load XPM images
-//     load_images(&animation);
-
-//     return 0;
-// }
+int anim(void *param)
+{
+	Animation *anim;
+	int h, w;
+	h = w = 60;
+	anim = (Animation *)param;
+	anim->index++;
+	mlx_clear_window(anim->mlx, anim->win);
+	printf("%d\n", (anim->index % 70) / 10);
+	anim->images = mlx_xpm_file_to_image(anim->mlx, anim->frames[(anim->index % 70) / 10], &h, &w);
+	if (anim->images == NULL)
+		exit(1);
+	mlx_put_image_to_window(anim->mlx, anim->win, anim->images, 0, 0);
+	return (0);
+}
+int main()
+{
+	// Initialize MLX
+	Animation animation;
+	animation.index = 0;
+	animation.mlx = mlx_init();
+	animation.frames[0] = "textures/collectible/coin0.xpm";
+	animation.frames[1] = "textures/collectible/coin1.xpm";
+	animation.frames[2] = "textures/collectible/coin2.xpm";
+	animation.frames[3] = "textures/collectible/coin3.xpm";
+	animation.frames[4] = "textures/collectible/coin4.xpm";
+	animation.frames[5] = "textures/collectible/coin5.xpm";
+	animation.frames[6] = "textures/collectible/coin6.xpm";
+	animation.current_frame = 0;
+	animation.win = mlx_new_window(animation.mlx, 500, 500, "Animation");
+	anim(&animation);
+	mlx_loop_hook(animation.mlx, anim, (void *)&animation);
+	mlx_loop(animation.mlx);
+}
