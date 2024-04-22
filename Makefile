@@ -1,19 +1,11 @@
 CC = cc 
 NAME = so_long
-# BNAME = so_long_bonus
 CFLAGS = -Wall -Wextra -Werror
 SRC =	mandatory/main.c \
 		mandatory/map_checker.c \
 		mandatory/map_path.c \
 		mandatory/display_map.c \
 		mandatory/moves.c 
-
-# BSRC =	bonus_/main_bonus.c \
-# 		bonus_/map_checker_bonus.c \
-# 		bonus_/map_path_bonus.c \
-# 		bonus_/display_map_bonus.c \
-# 		bonus_/moves_bonus.c \
-# 		# bonus_/image_bonus.c \
 
 libs= mylib/mylib.a
 

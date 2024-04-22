@@ -6,21 +6,11 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/20 13:15:16 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:03:37 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	ft_len(char *line)
-{
-	int	len;
-
-	len = 0;
-	while (line && line[len] && line[len] != '\n')
-		len++;
-	return (len);
-}
 
 void	count_char(t_mlx *mlx, char *line)
 {
@@ -107,7 +97,7 @@ void	map_reader(t_mlx *mlx, int fd)
 
 void	map_checker(char *filename, t_mlx *mlx)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
