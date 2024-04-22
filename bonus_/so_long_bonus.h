@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:45 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/21 15:12:50 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:22:14 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,23 @@ typedef struct s_mlx
 	int		size_img;
 	char	*file;
 	int		n_c;
+	int		x_c;
+	int		y_c;
+	int 	in_c;
 	int		n_p;
 	int		n_e;
 	int		n_n;
+	int		x_n;
+	int		y_n;
+	int		up_down;
 	int		x_p;
 	int		y_p;
 	int		x_e;
 	int		y_e;
 	int		moves;
+	char *coin_frames[7];
+	char *coin_img[7];
+	long index;
 } t_mlx;
 
 /*------------------main---------------------*/
@@ -132,8 +141,8 @@ void	display_ground(t_mlx *mlx);
 
 /// @brief display map
 /// @param mlx 
-void	display_map(t_mlx *mlx);
-
+// void	display_map(t_mlx *mlx);
+int display_map(void *param);
 /*------------------moves---------------------*/
 /// @brief move char to (x , y)
 /// @param mlx 
@@ -146,5 +155,6 @@ void	move_(t_mlx *mlx, int x, int y);
 /// @param param mlx
 /// @return 
 int		moves(int keycode, void *param);
-
+void	coin_imgs(t_mlx *mlx);
+void move_n(t_mlx *mlx);
 #endif

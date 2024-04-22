@@ -1,6 +1,6 @@
 CC = cc 
 NAME = so_long
-BNAME = so_long_bonus
+# BNAME = so_long_bonus
 CFLAGS = -Wall -Wextra -Werror
 SRC =	mandatory/main.c \
 		mandatory/map_checker.c \
@@ -8,12 +8,12 @@ SRC =	mandatory/main.c \
 		mandatory/display_map.c \
 		mandatory/moves.c 
 
-BSRC =	bonus_/main_bonus.c \
-		bonus_/map_checker_bonus.c \
-		bonus_/map_path_bonus.c \
-		bonus_/display_map_bonus.c \
-		bonus_/moves_bonus.c \
-		# bonus_/image_bonus.c \
+# BSRC =	bonus_/main_bonus.c \
+# 		bonus_/map_checker_bonus.c \
+# 		bonus_/map_path_bonus.c \
+# 		bonus_/display_map_bonus.c \
+# 		bonus_/moves_bonus.c \
+# 		# bonus_/image_bonus.c \
 
 libs= mylib/mylib.a
 
@@ -25,29 +25,24 @@ BOBJ = $(BSRC:.c=.o)
 
 all: $(NAME)
 
-$(libs):
-	make -C mylib
-
 $(NAME): $(OBJ) $(libs)
-	$(CC) $(CFLAGS) $(OBJ)  $(libs) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(libs) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-bonus: $(BOBJ) $(libs)
-	$(CC) $(CFLAGS) $(BOBJ)  $(libs) -lmlx -framework OpenGL -framework AppKit -o $(BNAME)
+bonus:
+	@make -C bonus_
 
+$(libs):
+	@make -C mylib
 
 clean:
-	make clean -C mylib
-	rm -f $(OBJ) $(BOBJ)
+	@make clean -C mylib
+	@make clean -C bonus_
+	rm -f $(OBJ)
 
 fclean:	clean
-	make fclean -C mylib
-	rm -f $(NAME) $(BNAME)
+	@make fclean -C mylib
+	@make fclean -C bonus_
+	rm -f $(NAME)
 
 re:	fclean all
-########################################
-
-tests = test.c
-TOBJ=$(tests:.c=.o)
-
-test: $(TOBJ)
-	$(CC) $(TOBJ) -lmlx -framework OpenGL -framework AppKit 
+.PHONY: clean fclean

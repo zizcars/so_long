@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:28 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/21 15:13:22 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:25:28 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ void set_default(t_mlx *mlx)
 	mlx->x_e = 0;
 	mlx->y_e = 0;
 	mlx->moves = 0;
+	mlx->index = 0;
+	mlx->up_down = 1;
+	mlx->in_c = 0;
+	mlx->x_c = 0;
+	mlx->y_c = 0;
 }
 
 int mouse(void *param)
@@ -72,7 +77,6 @@ int mouse(void *param)
 
 	mlx = (t_mlx *)param;
 	mlx_destroy_window(mlx->mlx, mlx->win);
-	system("leaks so_long_bonus");
 	exit(0);
 	return (0);
 }
@@ -93,8 +97,10 @@ int main(int argc, char **argv)
 	mlx.size_win_y = mlx.size_y * 64;
 	mlx.win = mlx_new_window(mlx.mlx, mlx.size_win_x, mlx.size_win_y, "so_long");
 	mlx_img(&mlx);
-	display_map(&mlx);
+	coin_imgs(&mlx);
+	find_P(&mlx, &mlx.x_n, &mlx.y_n, 'N');
 	mlx_hook(mlx.win, 2, 1L << 0, moves, (void *)&mlx);
 	mlx_hook(mlx.win, 17, 0, mouse, (void *)&mlx);
+	mlx_loop_hook(mlx.mlx, display_map, (void *)&mlx);
 	mlx_loop(mlx.mlx);
 }

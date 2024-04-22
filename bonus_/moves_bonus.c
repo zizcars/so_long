@@ -6,11 +6,56 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:57:15 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/21 11:50:58 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:40:07 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+void move_n(t_mlx *mlx)
+{
+	int y;
+
+	y = mlx->y_n;
+	if (mlx->map[mlx->y_n + 1][mlx->x_n] == '1' || mlx->map[mlx->y_n - 1][mlx->x_n] == '1')
+	{
+		if (mlx->up_down == 1)
+			mlx->up_down = -1;
+		else
+			mlx->up_down = 1;
+	}
+	if (mlx->up_down == 1)
+		mlx->y_n++;
+	else if (mlx->up_down == -1)
+		mlx->y_n--;
+	if (mlx->map[mlx->y_n][mlx->x_n] == '0')
+	{
+		mlx->map[mlx->y_n][mlx->x_n] = 'N';
+		mlx->map[y][mlx->x_n] = '0';
+	}
+	else if (mlx->map[mlx->y_n][mlx->x_n] == 'C')
+	{
+		mlx->in_c = 1;
+		mlx->x_c = mlx->x_n;
+		mlx->y_c = mlx->y_n;
+		mlx->map[y][mlx->x_n] = '0';
+		mlx->map[mlx->y_n][mlx->x_n] = 'N';
+	}
+	else if (mlx->map[mlx->y_n][mlx->x_n] == 'E')
+	{
+		mlx->map[y][mlx->x_n] = '0';
+		mlx->map[mlx->y_n][mlx->x_n] = 'N';
+	}
+	else
+		return;
+	if (mlx->map[mlx->y_e][mlx->x_e] == '0')
+		mlx->map[mlx->y_e][mlx->x_e] = 'E';
+	if (mlx->in_c && mlx->map[mlx->y_c][mlx->x_c] == '0')
+	{
+		mlx->map[mlx->y_c][mlx->x_c] = 'C';
+		mlx->in_c = 0;
+	}
+}
 
 void move_(t_mlx *mlx, int x, int y)
 {
@@ -39,7 +84,8 @@ void move_(t_mlx *mlx, int x, int y)
 		error("Game over\n");
 	if (mlx->map[mlx->y_e][mlx->x_e] == '0')
 		mlx->map[mlx->y_e][mlx->x_e] = 'E';
-	display_map(mlx);
+	move_n(mlx);
+	// display_map(mlx);
 }
 
 int moves(int keycode, void *param)
