@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 18:41:32 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/22 18:42:17 by Achakkaf         ###   ########.fr       */
+/*   Created: 2024/04/17 17:12:12 by Achakkaf          #+#    #+#             */
+/*   Updated: 2024/04/22 16:08:47 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void coin_imgs(t_mlx *mlx)
 	int h;
 	int w;
 
-	mlx->coin_frames[0] = "textures/coin/coin0.xpm";
-	mlx->coin_frames[1] = "textures/coin/coin1.xpm";
-	mlx->coin_frames[2] = "textures/coin/coin2.xpm";
-	mlx->coin_frames[3] = "textures/coin/coin3.xpm";
-	mlx->coin_frames[4] = "textures/coin/coin4.xpm";
-	mlx->coin_frames[5] = "textures/coin/coin5.xpm";
-	mlx->coin_frames[6] = "textures/coin/coin6.xpm";
+	mlx->coin_frames[0] = "textures/collectible/coin0.xpm";
+	mlx->coin_frames[1] = "textures/collectible/coin1.xpm";
+	mlx->coin_frames[2] = "textures/collectible/coin2.xpm";
+	mlx->coin_frames[3] = "textures/collectible/coin3.xpm";
+	mlx->coin_frames[4] = "textures/collectible/coin4.xpm";
+	mlx->coin_frames[5] = "textures/collectible/coin5.xpm";
+	mlx->coin_frames[6] = "textures/collectible/coin6.xpm";
 	h = 60;
 	w = 60;
 	i = 0;
@@ -42,22 +42,22 @@ void coin_imgs(t_mlx *mlx)
 
 void mlx_img(t_mlx *mlx)
 {
-	mlx->img[0] = mlx_xpm_file_to_image(mlx->mlx, "textures/ground.xpm", &mlx->size_img, &mlx->size_img);
+	mlx->img[0] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/ground2.xpm", &mlx->size_img, &mlx->size_img);
 	if (mlx->img[0] == NULL)
-		error("invalid image <textures/ground2.xpm>\n");
-	mlx->img[1] = mlx_xpm_file_to_image(mlx->mlx, "textures/wall.xpm", &mlx->size_img, &mlx->size_img);
+		error("invalid image <textures/env/ground2.xpm>\n");
+	mlx->img[1] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/wall.xpm", &mlx->size_img, &mlx->size_img);
 	if (mlx->img[1] == NULL)
-		error("invalid image <textures/wall.xpm>\n");
-	mlx->img[2] = mlx_xpm_file_to_image(mlx->mlx, "textures/player.xpm", &mlx->size_img, &mlx->size_img);
+		error("invalid image <textures/env/wall.xpm>\n");
+	mlx->img[2] = mlx_xpm_file_to_image(mlx->mlx, "textures/player/dir/down/down0.xpm", &mlx->size_img, &mlx->size_img);
 	if (mlx->img[2] == NULL)
 		error("invalid image <textures/player/dir/down/down1.xpm>\n");
-	mlx->img[3] = mlx_xpm_file_to_image(mlx->mlx, "textures/exit0.xpm", &mlx->size_img, &mlx->size_img);
+	mlx->img[3] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/exit0.xpm", &mlx->size_img, &mlx->size_img);
 	if (mlx->img[3] == NULL)
-		error("invalid image\n");
-	mlx->img[4] = mlx_xpm_file_to_image(mlx->mlx, "textures/exit1.xpm", &mlx->size_img, &mlx->size_img);
+		error("invalid image <textures/collectible/coin0.xpm>\n");
+	mlx->img[4] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/exit1.xpm", &mlx->size_img, &mlx->size_img);
 	if (mlx->img[4] == NULL)
-		error("invalid image textures/exit1.xpm\n");
-	mlx->img[5] = mlx_xpm_file_to_image(mlx->mlx, "textures/mob.xpm", &mlx->size_img, &mlx->size_img);
+		error("invalid image textures/env/exit1.xpm\n");
+	mlx->img[5] = mlx_xpm_file_to_image(mlx->mlx, "textures/mob/mob0.xpm", &mlx->size_img, &mlx->size_img);
 	if (mlx->img[5] == NULL)
 		error("invalid image textures/mob/mob0.xpm\n");
 }
