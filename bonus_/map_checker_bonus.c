@@ -6,40 +6,11 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 15:10:53 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:25:53 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
-
-int	ft_len(char *line)
-{
-	int	len;
-
-	len = 0;
-	while (line && line[len] && line[len] != '\n')
-		len++;
-	return (len);
-}
-
-void	count_char(t_mlx *mlx, char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line && line[i])
-	{
-		if (line[i] == 'C')
-			mlx->n_c += 1;
-		else if (line[i] == 'E')
-			(mlx->n_e) += 1;
-		else if (line[i] == 'P')
-			(mlx->n_p) += 1;
-		else if (line[i] == 'N')
-			(mlx->n_n) += 1;
-		i++;
-	}
-}
 
 void	check_char(char *line, int max)
 {
@@ -107,23 +78,42 @@ void	map_reader(t_mlx *mlx, int fd)
 	}
 }
 
+void	check_filename(char *filename)
+{
+	char	*ber;
+	int		i;
+	int		len;
+
+	ber = ".ber";
+	len = ft_strlen(filename);
+	i = len - 4;
+	while (filename[i])
+	{
+		if (filename[i] != *ber)
+			error("Error\nfilename doesn't end with .ber\n");
+		i++;
+		ber++;
+	}
+}
+
 void	map_checker(char *filename, t_mlx *mlx)
 {
 	int		fd;
 
+	check_filename(filename);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		error("can't open the file\n");
 	map_reader(mlx, fd);
 	close(fd);
 	if (mlx->n_e != 1)
-		error("more/less than one E\n");
+		error("Error\nmore/less than one E\n");
 	if (mlx->n_p != 1)
-		error("more/less than one P\n");
+		error("Error\nmore/less than one P\n");
 	if (mlx->n_c < 1)
-		error("less than one C\n");
+		error("Error\nless than one C\n");
 	if (mlx->n_n > 1)
-		error("more than one N\n");
+		error("Error\nmore than one N\n");
 	if (mlx->size_x == -1)
-		error("error\n");
+		error("Error\n");
 }

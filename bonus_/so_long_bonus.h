@@ -6,12 +6,12 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:45 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/22 16:22:14 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:28:10 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <math.h>
 # include <fcntl.h>
@@ -30,6 +30,7 @@
 # define R_ARROW 124
 # define D_ARROW 125
 # define U_ARROW 126
+# define ESC 53
 
 typedef struct s_mlx
 {
@@ -47,7 +48,7 @@ typedef struct s_mlx
 	int		n_c;
 	int		x_c;
 	int		y_c;
-	int 	in_c;
+	int		in_c;
 	int		n_p;
 	int		n_e;
 	int		n_n;
@@ -59,10 +60,10 @@ typedef struct s_mlx
 	int		x_e;
 	int		y_e;
 	int		moves;
-	char *coin_frames[7];
-	char *coin_img[7];
-	long index;
-} t_mlx;
+	char	*coin_frames[7];
+	char	*coin_img[7];
+	int		index;
+}	t_mlx;
 
 /*------------------main---------------------*/
 /// @brief print error  in stderr and exit with 1
@@ -98,7 +99,7 @@ void	check_start_end(char *line);
 /// @param fd 
 void	map_reader(t_mlx *mlx, int fd);
 
-/// @brief check the map is valid or not and calculte the size of map and store it in file variable
+/// @brief check the map is valid or not and calculte the size of map
 /// @param filename 
 /// @param mlx 
 void	map_checker(char *filename, t_mlx *mlx);
@@ -114,7 +115,7 @@ void	*ft_malloc(size_t size);
 /// @param x place to store x 
 /// @param y place to store y 
 /// @param c character to search for it coordonate
-void	find_P(t_mlx *mlx, int *x, int *y, char c);
+void	find_p(t_mlx *mlx, int *x, int *y, char c);
 
 /// @brief change the cpy of map to 1
 /// @param mlx
@@ -139,22 +140,20 @@ void	mlx_img(t_mlx *mlx);
 /// @param mlx 
 void	display_ground(t_mlx *mlx);
 
-/// @brief display map
-/// @param mlx 
-// void	display_map(t_mlx *mlx);
-int display_map(void *param);
+int		display_map(void *param);
 /*------------------moves---------------------*/
 /// @brief move char to (x , y)
-/// @param mlx 
-/// @param x 
-/// @param y 
 void	move_(t_mlx *mlx, int x, int y);
 
 /// @brief move char up, down, right, left
 /// @param keycode 
 /// @param param mlx
-/// @return 
 int		moves(int keycode, void *param);
+
 void	coin_imgs(t_mlx *mlx);
-void move_n(t_mlx *mlx);
+
+void	move_n(t_mlx *mlx);
+
+void	check_filename(char *filename);
+
 #endif

@@ -6,28 +6,14 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:57:15 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 15:07:11 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:28:14 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void move_n(t_mlx *mlx)
+void	move_n_p1(t_mlx *mlx, int y)
 {
-	int y;
-
-	y = mlx->y_n;
-	if (mlx->map[mlx->y_n + 1][mlx->x_n] == '1' || mlx->map[mlx->y_n - 1][mlx->x_n] == '1')
-	{
-		if (mlx->up_down == 1)
-			mlx->up_down = -1;
-		else
-			mlx->up_down = 1;
-	}
-	if (mlx->up_down == 1)
-		mlx->y_n++;
-	else if (mlx->up_down == -1)
-		mlx->y_n--;
 	if (mlx->map[mlx->y_n][mlx->x_n] == '0')
 	{
 		mlx->map[mlx->y_n][mlx->x_n] = 'N';
@@ -46,8 +32,30 @@ void move_n(t_mlx *mlx)
 		mlx->map[y][mlx->x_n] = '0';
 		mlx->map[mlx->y_n][mlx->x_n] = 'N';
 	}
+	else if (mlx->map[mlx->y_n][mlx->x_n] == 'P')
+		error("Game over\n");
 	else
-		return;
+		return ;
+}
+
+void	move_n(t_mlx *mlx)
+{
+	int	y;
+
+	y = mlx->y_n;
+	if (mlx->map[mlx->y_n + 1][mlx->x_n] == '1' || \
+		mlx->map[mlx->y_n - 1][mlx->x_n] == '1')
+	{
+		if (mlx->up_down == 1)
+			mlx->up_down = -1;
+		else
+			mlx->up_down = 1;
+	}
+	if (mlx->up_down == 1)
+		mlx->y_n++;
+	else if (mlx->up_down == -1)
+		mlx->y_n--;
+	move_n_p1(mlx, y);
 	if (mlx->map[mlx->y_e][mlx->x_e] == '0')
 		mlx->map[mlx->y_e][mlx->x_e] = 'E';
 	if (mlx->in_c && mlx->map[mlx->y_c][mlx->x_c] == '0')
@@ -57,7 +65,15 @@ void move_n(t_mlx *mlx)
 	}
 }
 
-void move_(t_mlx *mlx, int x, int y)
+void	check_e(t_mlx *mlx)
+{
+	if (mlx->map[mlx->y_e][mlx->x_e] == '0')
+		mlx->map[mlx->y_e][mlx->x_e] = 'E';
+	if (mlx->x_n < mlx->size_x && mlx->y_n < mlx->size_y)
+		move_n(mlx);
+}
+
+void	move_(t_mlx *mlx, int x, int y)
 {
 	mlx->moves++;
 	if (mlx->map[y][x] == '0')
@@ -79,21 +95,18 @@ void move_(t_mlx *mlx, int x, int y)
 		mlx->map[mlx->y_p][mlx->x_p] = '0';
 	}
 	else if (mlx->map[y][x] == '1')
-		return;
+		return ;
 	else
 		error("Game over\n");
-	if (mlx->map[mlx->y_e][mlx->x_e] == '0')
-		mlx->map[mlx->y_e][mlx->x_e] = 'E';
-	if (mlx->x_n < mlx->size_x && mlx->y_n < mlx->size_y)
-		move_n(mlx);
+	check_e(mlx);
 }
 
-int moves(int keycode, void *param)
+int	moves(int keycode, void *param)
 {
-	t_mlx *mlx;
+	t_mlx	*mlx;
 
 	mlx = (t_mlx *)param;
-	find_P(mlx, &mlx->x_p, &mlx->y_p, 'P');
+	find_p(mlx, &mlx->x_p, &mlx->y_p, 'P');
 	if (keycode == A || keycode == L_ARROW)
 		move_(mlx, mlx->x_p - 1, mlx->y_p);
 	else if (keycode == S || keycode == D_ARROW)
@@ -102,7 +115,7 @@ int moves(int keycode, void *param)
 		move_(mlx, mlx->x_p + 1, mlx->y_p);
 	else if (keycode == W || keycode == U_ARROW)
 		move_(mlx, mlx->x_p, mlx->y_p - 1);
-	else if (keycode == 53)
+	else if (keycode == ESC)
 	{
 		mlx_destroy_window(mlx->mlx, mlx->win);
 		exit(0);

@@ -6,7 +6,7 @@ BSRC =	main_bonus.c \
 		map_path_bonus.c \
 		display_map_bonus.c \
 		moves_bonus.c \
-		# bonus_/image_bonus.c 
+		image_bonus.c 
 
 libs= ../mylib/mylib.a
 BOBJ = $(BSRC:.c=.o)

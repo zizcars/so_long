@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 15:56:08 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:26:34 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ void	map_checker(char *filename, t_mlx *mlx)
 	if (mlx->size_x == 0)
 		error("Error\nFile is empty\n");
 	if (mlx->n_e != 1)
-		error("Error\nThe number of E in the map does not match\n");
+		error("Error\nmore/less than one E\n");
 	if (mlx->n_p != 1)
-		error("Error\nThe number of P in the map does not match\n");
+		error("Error\nmore/less than one P\n");
 	if (mlx->n_c < 1)
-		error("Error\nThe number of C in the map does not match\n");
+		error("Error\nless than one C\n");
 }
