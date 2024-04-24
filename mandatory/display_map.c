@@ -6,35 +6,36 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:12:12 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/21 10:50:43 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:40:27 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	mlx_img(t_mlx *mlx)
+void mlx_img(t_mlx *mlx)
 {
-	mlx->img[0] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/ground2.xpm", &mlx->size_img, &mlx->size_img);
-	if (mlx->img[0] == NULL)
-		error("invalid image <textures/env/ground2.xpm>\n");
-	mlx->img[1] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/wall.xpm", &mlx->size_img, &mlx->size_img);
-	if (mlx->img[1] == NULL)
-		error("invalid image <textures/env/wall.xpm>\n");
-	mlx->img[2] = mlx_xpm_file_to_image(mlx->mlx, "textures/player/dir/down/down0.xpm", &mlx->size_img, &mlx->size_img);
-	if (mlx->img[2] == NULL)
-		error("invalid image <textures/player/dir/down/down0.xpm>\n");
-	mlx->img[3] = mlx_xpm_file_to_image(mlx->mlx, "textures/collectible/coin0.xpm", &mlx->size_img, &mlx->size_img);
-	if (mlx->img[3] == NULL)
-		error("invalid image <textures/collectible/coin0.xpm>\n");
-	mlx->img[4] = mlx_xpm_file_to_image(mlx->mlx, "textures/env/exit1.xpm", &mlx->size_img, &mlx->size_img);
-	if (mlx->img[4] == NULL)
-		error("invalid image\n");
+	char *frames[5];
+	int i;
+
+	i = 0;
+	frames[0] = "textures/ground.xpm";
+	frames[1] = "textures/wall.xpm";
+	frames[2] = "textures/player.xpm";
+	frames[3] = "textures/coin/coin0.xpm";
+	frames[4] = "textures/exit1.xpm";
+	while (i < 5)
+	{
+		mlx->img[i] = mlx_xpm_file_to_image(mlx->mlx, frames[i], &mlx->size_img, &mlx->size_img);
+		if (mlx->img[i] == NULL)
+			error("Error\ninvalid image\n");
+		i++;
+	}
 }
 
-void	display_ground(t_mlx *mlx)
+void display_ground(t_mlx *mlx)
 {
-	int	x;
-	int	y;
+	int x;
+	int y;
 
 	y = 0;
 	while (y < mlx->size_y)
@@ -49,10 +50,10 @@ void	display_ground(t_mlx *mlx)
 	}
 }
 
-void	display_row(t_mlx *mlx, int y)
+void display_row(t_mlx *mlx, int y)
 {
-	int	x;
-	int	i;
+	int x;
+	int i;
 
 	x = 0;
 	while (x < mlx->size_x)
@@ -68,16 +69,16 @@ void	display_row(t_mlx *mlx, int y)
 		else
 		{
 			x++;
-			continue ;
+			continue;
 		}
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[i], x * 64, y * 64);
 		x++;
 	}
 }
 
-void	display_map(t_mlx *mlx)
+void display_map(t_mlx *mlx)
 {
-	int	y;
+	int y;
 
 	y = 0;
 	display_ground(mlx);

@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:57:15 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/22 17:37:12 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:07:11 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void move_(t_mlx *mlx, int x, int y)
 		error("Game over\n");
 	if (mlx->map[mlx->y_e][mlx->x_e] == '0')
 		mlx->map[mlx->y_e][mlx->x_e] = 'E';
-	move_n(mlx);
+	if (mlx->x_n < mlx->size_x && mlx->y_n < mlx->size_y)
+		move_n(mlx);
 }
 
 int moves(int keycode, void *param)

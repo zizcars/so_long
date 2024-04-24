@@ -6,25 +6,16 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/20 13:15:16 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:44:41 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_len(char *line)
-{
-	int	len;
 
-	len = 0;
-	while (line && line[len] && line[len] != '\n')
-		len++;
-	return (len);
-}
-
-void	count_char(t_mlx *mlx, char *line)
+void count_char(t_mlx *mlx, char *line)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (line && line[i])
@@ -39,12 +30,12 @@ void	count_char(t_mlx *mlx, char *line)
 	}
 }
 
-void	check_char(char *line, int max)
+void check_char(char *line, int max)
 {
-	char	*check;
-	int		i;
-	int		j;
-	int		len;
+	char *check;
+	int i;
+	int j;
+	int len;
 
 	check = "10PEC";
 	i = 0;
@@ -52,39 +43,39 @@ void	check_char(char *line, int max)
 	if (len > 1 && ft_strchr(line, '\n'))
 		line[len] = '\0';
 	if (len != max || line[len - 1] != '1' || line[0] != '1')
-		error("the map doesn't srounded by walls\n");
+		error("Error\nThe map doesn't srounded by walls\n");
 	while (line && line[i])
 	{
 		j = 0;
 		while (check[j])
 		{
 			if (check[j] == line[i])
-				break ;
+				break;
 			j++;
 		}
 		if (check[j] == '\0')
-			error("undefined character\n");
+			error("Error\nUndefined character\n");
 		i++;
 	}
 }
 
-void	check_start_end(char *line)
+void check_start_end(char *line)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (line && (line[i] != '\n' && line[i]))
 	{
 		if (line[i] != '1')
-			error("no walls in start and end\n");
+			error("Error\nNo walls in start and end\n");
 		i++;
 	}
 }
 
-void	map_reader(t_mlx *mlx, int fd)
+void map_reader(t_mlx *mlx, int fd)
 {
-	char	*tmp;
-	char	*line;
+	char *tmp;
+	char *line;
 
 	line = get_next_line(fd);
 	check_start_end(line);
@@ -105,21 +96,24 @@ void	map_reader(t_mlx *mlx, int fd)
 	}
 }
 
-void	map_checker(char *filename, t_mlx *mlx)
-{
-	int		fd;
 
+
+void map_checker(char *filename, t_mlx *mlx)
+{
+	int fd;
+
+	check_filename(filename);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		error("can't open the file\n");
+		error("Error\ncan't open the file\n");
 	map_reader(mlx, fd);
 	close(fd);
+	if (mlx->size_x == 0)
+		error("Error\nFile is empty\n");
 	if (mlx->n_e != 1)
-		error("The number of E in the map does not match\n");
+		error("Error\nThe number of E in the map does not match\n");
 	if (mlx->n_p != 1)
-		error("The number of P in the map does not match\n");
+		error("Error\nThe number of P in the map does not match\n");
 	if (mlx->n_c < 1)
-		error("The number of C in the map does not match\n");
-	if (mlx->size_x == -1)
-		error("error\n");
+		error("Error\nThe number of C in the map does not match\n");
 }

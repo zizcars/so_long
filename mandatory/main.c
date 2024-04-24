@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:28 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/20 13:37:15 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:40:45 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 
 	mlx.size_img = 64;
 	if (argc != 2)
-		error("Enter a map <*.ber>");
+		error("Error\nEnter a map <*.ber>");
 	set_default(&mlx);
 	map_checker(argv[1], &mlx);
 	create_map(&mlx);

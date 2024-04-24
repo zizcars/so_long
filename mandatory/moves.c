@@ -6,11 +6,39 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:57:15 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/21 12:28:03 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:45:05 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	ft_len(char *line)
+{
+	int len;
+
+	len = 0;
+	while (line && line[len] && line[len] != '\n')
+		len++;
+	return (len);
+}
+
+void check_filename(char *filename)
+{
+	char *ber;
+	int i;
+	int len;
+
+	ber = ".ber";
+	len = ft_strlen(filename);
+	i = len - 4;
+	while (filename[i])
+	{
+		if (filename[i] != *ber)
+			error("Error\nfilename doesn't end with .ber\n");
+		i++;
+		ber++;
+	}
+}
 
 void move_(t_mlx *mlx, int x, int y)
 {
