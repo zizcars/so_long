@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:28 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/22 16:25:28 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:17:54 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,27 @@ void set_default(t_mlx *mlx)
 {
 	mlx->mlx = mlx_init();
 	mlx->win = NULL;
-	mlx->cpy = NULL;
-	mlx->file = NULL;
-	mlx->map = NULL;
-	mlx->n_c = 0;
-	mlx->n_e = 0;
-	mlx->n_p = 0;
-	mlx->n_n = 0;
 	mlx->size_win_x = 0;
 	mlx->size_win_y = 0;
 	mlx->size_x = 0;
 	mlx->size_y = 0;
+	mlx->file = NULL;
+	mlx->n_c = 0;
+	mlx->x_c = 0;
+	mlx->y_c = 0;
+	mlx->in_c = 0;
+	mlx->n_p = 0;
+	mlx->n_e = 0;
+	mlx->n_n = 0;
+	mlx->x_n = 0;
+	mlx->y_n = 0;
+	mlx->up_down = 1;
+	mlx->x_p = 0;
+	mlx->y_p = 0;
 	mlx->x_e = 0;
 	mlx->y_e = 0;
 	mlx->moves = 0;
 	mlx->index = 0;
-	mlx->up_down = 1;
-	mlx->in_c = 0;
-	mlx->x_c = 0;
-	mlx->y_c = 0;
 }
 
 int mouse(void *param)
@@ -90,11 +92,12 @@ int main(int argc, char **argv)
 		error("Enter a map <*.ber>");
 	set_default(&mlx);
 	map_checker(argv[1], &mlx);
+	ft_printf("xsdf\n");
 	create_map(&mlx);
 	check_path(&mlx);
 	find_P(&mlx, &(mlx.x_e), &(mlx.y_e), 'E');
-	mlx.size_win_x = mlx.size_x * 64;
-	mlx.size_win_y = mlx.size_y * 64;
+	mlx.size_win_x = mlx.size_x * mlx.size_img;
+	mlx.size_win_y = mlx.size_y * mlx.size_img;
 	mlx.win = mlx_new_window(mlx.mlx, mlx.size_win_x, mlx.size_win_y, "so_long");
 	mlx_img(&mlx);
 	coin_imgs(&mlx);

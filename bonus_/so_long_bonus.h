@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:45 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/22 16:22:14 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:11:20 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@
 # define D_ARROW 125
 # define U_ARROW 126
 
+
+/// @brief mlx struct has all the element that i will need to work so_long
+/// @param mlx take the return value of mlx_int
+/// @param win take the return value of mlx_new_window
+/// @param img take 6 images ground wall player 2 exits enemy
+/// @param map store the map as a 2D array
+/// @param cpy store the same cpy of map
+/// @param size_win_x store the size of window in pixles x
+/// @param size_win_y store the size of window in pixles y
+/// @param size_x store size of map x 
+/// @param size_y store size of map y
+/// @param size_img the is the size of image in pixles it is 64
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -59,9 +71,9 @@ typedef struct s_mlx
 	int		x_e;
 	int		y_e;
 	int		moves;
-	char *coin_frames[7];
-	char *coin_img[7];
-	long index;
+	char	*coin_frames[7];
+	char	*coin_img[7];
+	int		index;
 } t_mlx;
 
 /*------------------main---------------------*/
