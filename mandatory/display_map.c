@@ -6,16 +6,16 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:12:12 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 15:40:27 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:59:57 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void mlx_img(t_mlx *mlx)
+void	mlx_img(t_mlx *mlx)
 {
-	char *frames[5];
-	int i;
+	char	*frames[5];
+	int		i;
 
 	i = 0;
 	frames[0] = "textures/ground.xpm";
@@ -25,17 +25,18 @@ void mlx_img(t_mlx *mlx)
 	frames[4] = "textures/exit1.xpm";
 	while (i < 5)
 	{
-		mlx->img[i] = mlx_xpm_file_to_image(mlx->mlx, frames[i], &mlx->size_img, &mlx->size_img);
+		mlx->img[i] = mlx_xpm_file_to_image(mlx->mlx, \
+			frames[i], &mlx->size_img, &mlx->size_img);
 		if (mlx->img[i] == NULL)
 			error("Error\ninvalid image\n");
 		i++;
 	}
 }
 
-void display_ground(t_mlx *mlx)
+void	display_ground(t_mlx *mlx)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < mlx->size_y)
@@ -43,17 +44,18 @@ void display_ground(t_mlx *mlx)
 		x = 0;
 		while (x < mlx->size_x)
 		{
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[0], x * 64, y * 64);
+			mlx_put_image_to_window(mlx->mlx, mlx->win, \
+				mlx->img[0], x * 64, y * 64);
 			x++;
 		}
 		y++;
 	}
 }
 
-void display_row(t_mlx *mlx, int y)
+void	display_row(t_mlx *mlx, int y)
 {
-	int x;
-	int i;
+	int	x;
+	int	i;
 
 	x = 0;
 	while (x < mlx->size_x)
@@ -69,16 +71,17 @@ void display_row(t_mlx *mlx, int y)
 		else
 		{
 			x++;
-			continue;
+			continue ;
 		}
-		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[i], x * 64, y * 64);
+		mlx_put_image_to_window(mlx->mlx, mlx->win, \
+			mlx->img[i], x * 64, y * 64);
 		x++;
 	}
 }
 
-void display_map(t_mlx *mlx)
+void	display_map(t_mlx *mlx)
 {
-	int y;
+	int	y;
 
 	y = 0;
 	display_ground(mlx);

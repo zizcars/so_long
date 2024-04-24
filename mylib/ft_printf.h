@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 11:23:09 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/14 12:36:48 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:51:53 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 # define STDOUT 1
-# 
+
 int		ft_printf(const char *format, ...);
 int		ft_putchar(char c);
 int		ft_putstr(char *s);

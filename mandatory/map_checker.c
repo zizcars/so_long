@@ -6,16 +6,15 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 15:44:41 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:56:08 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
-void count_char(t_mlx *mlx, char *line)
+void	count_char(t_mlx *mlx, char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line && line[i])
@@ -30,12 +29,12 @@ void count_char(t_mlx *mlx, char *line)
 	}
 }
 
-void check_char(char *line, int max)
+void	check_char(char *line, int max)
 {
-	char *check;
-	int i;
-	int j;
-	int len;
+	char	*check;
+	int		i;
+	int		j;
+	int		len;
 
 	check = "10PEC";
 	i = 0;
@@ -50,7 +49,7 @@ void check_char(char *line, int max)
 		while (check[j])
 		{
 			if (check[j] == line[i])
-				break;
+				break ;
 			j++;
 		}
 		if (check[j] == '\0')
@@ -59,9 +58,9 @@ void check_char(char *line, int max)
 	}
 }
 
-void check_start_end(char *line)
+void	check_start_end(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line && (line[i] != '\n' && line[i]))
@@ -72,10 +71,10 @@ void check_start_end(char *line)
 	}
 }
 
-void map_reader(t_mlx *mlx, int fd)
+void	map_reader(t_mlx *mlx, int fd)
 {
-	char *tmp;
-	char *line;
+	char	*tmp;
+	char	*line;
 
 	line = get_next_line(fd);
 	check_start_end(line);
@@ -96,11 +95,9 @@ void map_reader(t_mlx *mlx, int fd)
 	}
 }
 
-
-
-void map_checker(char *filename, t_mlx *mlx)
+void	map_checker(char *filename, t_mlx *mlx)
 {
-	int fd;
+	int	fd;
 
 	check_filename(filename);
 	fd = open(filename, O_RDONLY);

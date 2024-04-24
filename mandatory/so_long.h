@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:45 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 15:45:58 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:52:50 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_mlx
 	int		x_e;
 	int		y_e;
 	int		moves;
-} t_mlx;
+}	t_mlx;
 
 /*------------------main---------------------*/
 /// @brief print error  in stderr and exit with 1
@@ -88,7 +88,7 @@ void	check_start_end(char *line);
 /// @param fd 
 void	map_reader(t_mlx *mlx, int fd);
 
-/// @brief check the map is valid or not and calculte the size of map and store it in file variable
+/// @brief check the map is valid or not and calculte the size of map
 /// @param filename 
 /// @param mlx 
 void	map_checker(char *filename, t_mlx *mlx);
@@ -104,7 +104,7 @@ void	*ft_malloc(size_t size);
 /// @param x place to store x 
 /// @param y place to store y 
 /// @param c character to search for it coordonate
-void	find_P(t_mlx *mlx, int *x, int *y, char c);
+void	find_p(t_mlx *mlx, int *x, int *y, char c);
 
 /// @brief change the cpy of map to 1
 /// @param mlx
@@ -147,6 +147,6 @@ void	move_(t_mlx *mlx, int x, int y);
 int		moves(int keycode, void *param);
 
 /// @brief check if filename end with .ber
-void check_filename(char *filename);
+void	check_filename(char *filename);
 
 #endif
