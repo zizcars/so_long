@@ -6,17 +6,17 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:28 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/20 13:37:15 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:25:27 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void create_map(t_mlx *mlx)
+void	create_map(t_mlx *mlx)
 {
-	int x;
-	int y;
-	int i;
+	int	x;
+	int	y;
+	int	i;
 
 	i = 0;
 	y = 0;
@@ -40,13 +40,13 @@ void create_map(t_mlx *mlx)
 	}
 }
 
-void error(char *error_message)
+void	error(char *error_message)
 {
 	write(STDERR, error_message, ft_strlen(error_message));
 	exit(1);
 }
 
-void set_default(t_mlx *mlx)
+void	set_default(t_mlx *mlx)
 {
 	mlx->mlx = mlx_init();
 	mlx->win = NULL;
@@ -65,9 +65,9 @@ void set_default(t_mlx *mlx)
 	mlx->moves = 0;
 }
 
-int mouse(void *param)
+int	mouse(void *param)
 {
-	t_mlx *mlx;
+	t_mlx	*mlx;
 
 	mlx = (t_mlx *)param;
 	mlx_destroy_window(mlx->mlx, mlx->win);
@@ -75,9 +75,9 @@ int mouse(void *param)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_mlx mlx;
+	t_mlx	mlx;
 
 	mlx.size_img = 64;
 	if (argc != 2)
@@ -86,10 +86,11 @@ int main(int argc, char **argv)
 	map_checker(argv[1], &mlx);
 	create_map(&mlx);
 	check_path(&mlx);
-	find_P(&mlx, &(mlx.x_e), &(mlx.y_e), 'E');
+	find_p(&mlx, &(mlx.x_e), &(mlx.y_e), 'E');
 	mlx.size_win_x = mlx.size_x * 64;
 	mlx.size_win_y = mlx.size_y * 64;
-	mlx.win = mlx_new_window(mlx.mlx, mlx.size_win_x, mlx.size_win_y, "so_long");
+	mlx.win = mlx_new_window(mlx.mlx, \
+		mlx.size_win_x, mlx.size_win_y, "so_long");
 	mlx_img(&mlx);
 	display_map(&mlx);
 	mlx_hook(mlx.win, 2, 1L << 0, moves, (void *)&mlx);

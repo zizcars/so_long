@@ -6,21 +6,11 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/20 13:15:16 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:23:59 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	ft_len(char *line)
-{
-	int	len;
-
-	len = 0;
-	while (line && line[len] && line[len] != '\n')
-		len++;
-	return (len);
-}
 
 void	count_char(t_mlx *mlx, char *line)
 {

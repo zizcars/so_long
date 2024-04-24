@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:54:44 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/20 13:26:38 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:39:24 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_malloc(size_t size)
 {
-	void *p;
+	void	*p;
 
 	p = malloc(size);
 	if (!p)
@@ -22,7 +22,7 @@ void	*ft_malloc(size_t size)
 	return (p);
 }
 
-void	find_P(t_mlx *mlx, int *x, int *y, char c)
+void	find_p(t_mlx *mlx, int *x, int *y, char c)
 {
 	*y = 0;
 	while (*y < mlx->size_y)
@@ -31,7 +31,7 @@ void	find_P(t_mlx *mlx, int *x, int *y, char c)
 		while (*x < mlx->size_x)
 		{
 			if (mlx->map[*y][*x] == c)
-				return;
+				return ;
 			(*x)++;
 		}
 		(*y)++;
@@ -40,7 +40,8 @@ void	find_P(t_mlx *mlx, int *x, int *y, char c)
 
 void	change_one(t_mlx *mlx, int x, int y)
 {
-	if (mlx->cpy[y][x] == '1' || (0 > x || x > mlx->size_x) || (mlx->size_y < y || y < 0))
+	if (mlx->cpy[y][x] == '1' || \
+		(0 > x || x > mlx->size_x) || (mlx->size_y < y || y < 0))
 		return ;
 	else
 		mlx->cpy[y][x] = '1';
@@ -61,7 +62,8 @@ void	check_map(t_mlx *mlx)
 		x = 0;
 		while (x < mlx->size_x)
 		{
-			if (mlx->cpy[y][x] == 'P' || mlx->cpy[y][x] == 'C' || mlx->cpy[y][x] == 'E')
+			if (mlx->cpy[y][x] == 'P' ||
+				mlx->cpy[y][x] == 'C' || mlx->cpy[y][x] == 'E')
 				error("No path found\n");
 			x++;
 		}
@@ -74,7 +76,7 @@ void	check_path(t_mlx *mlx)
 	int	x;
 	int	y;
 
-	find_P(mlx, &x, &y, 'P');
+	find_p(mlx, &x, &y, 'P');
 	change_one(mlx, x, y);
 	check_map(mlx);
 }
