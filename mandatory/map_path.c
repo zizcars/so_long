@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:54:44 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 15:54:37 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:57:12 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	check_map(t_mlx *mlx)
 		{
 			if (mlx->cpy[y][x] == 'P' || \
 				mlx->cpy[y][x] == 'C' || mlx->cpy[y][x] == 'E')
-				error("No path found\n");
+				error("Error\nNo path found\n");
 			x++;
 		}
 		y++;
