@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:57:15 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 15:52:06 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:23:46 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	check_filename(char *filename)
 
 void	check_e(t_mlx *mlx)
 {
+	mlx->moves++;
 	if (mlx->map[mlx->y_e][mlx->x_e] == '0')
 		mlx->map[mlx->y_e][mlx->x_e] = 'E';
 	display_map(mlx);
@@ -50,7 +51,6 @@ void	check_e(t_mlx *mlx)
 
 void	move_(t_mlx *mlx, int x, int y)
 {
-	mlx->moves++;
 	if (mlx->map[y][x] == '0')
 	{
 		mlx->map[mlx->y_p][mlx->x_p] = '0';
