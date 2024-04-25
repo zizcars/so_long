@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:42:13 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 18:22:18 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:48:50 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,26 @@ void	mlx_img(t_mlx *mlx)
 			error("Error\nInvalid image\n");
 		i++;
 	}
+}
+
+int	moves(int keycode, void *param)
+{
+	t_mlx	*mlx;
+
+	mlx = (t_mlx *)param;
+	find_p(mlx, &mlx->x_p, &mlx->y_p, 'P');
+	if (keycode == A || keycode == L_ARROW)
+		move_(mlx, mlx->x_p - 1, mlx->y_p);
+	else if (keycode == S || keycode == D_ARROW)
+		move_(mlx, mlx->x_p, mlx->y_p + 1);
+	else if (keycode == D || keycode == R_ARROW)
+		move_(mlx, mlx->x_p + 1, mlx->y_p);
+	else if (keycode == W || keycode == U_ARROW)
+		move_(mlx, mlx->x_p, mlx->y_p - 1);
+	else if (keycode == ESC)
+	{
+		mlx_destroy_window(mlx->mlx, mlx->win);
+		exit(0);
+	}
+	return (0);
 }

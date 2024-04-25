@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:57:15 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 18:54:08 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:48:21 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,25 @@ void	check_e(t_mlx *mlx)
 	}
 }
 
+void	check_wall(t_mlx *mlx, int x, int y)
+{
+	if (mlx->map[y][x] == '1')
+		return ;
+	else
+		error("Game over\n");
+}
+
 void	move_(t_mlx *mlx, int x, int y)
 {
-	mlx->moves++;
 	if (mlx->map[y][x] == '0')
 	{
+		mlx->moves++;
 		mlx->map[mlx->y_p][mlx->x_p] = '0';
 		mlx->map[y][x] = 'P';
 	}
 	else if (mlx->map[y][x] == 'C')
 	{
+		mlx->moves++;
 		mlx->n_c--;
 		mlx->map[mlx->y_p][mlx->x_p] = '0';
 		mlx->map[y][x] = 'P';
@@ -97,34 +106,11 @@ void	move_(t_mlx *mlx, int x, int y)
 	{
 		if (mlx->n_c == 0)
 			exit(0);
+		mlx->moves++;
 		mlx->map[y][x] = 'P';
 		mlx->map[mlx->y_p][mlx->x_p] = '0';
 	}
-	else if (mlx->map[y][x] == '1')
-		return ;
-	else
-		error("Game over\n");
+	else 
+		check_wall(mlx, x, y);
 	check_e(mlx);
-}
-
-int	moves(int keycode, void *param)
-{
-	t_mlx	*mlx;
-
-	mlx = (t_mlx *)param;
-	find_p(mlx, &mlx->x_p, &mlx->y_p, 'P');
-	if (keycode == A || keycode == L_ARROW)
-		move_(mlx, mlx->x_p - 1, mlx->y_p);
-	else if (keycode == S || keycode == D_ARROW)
-		move_(mlx, mlx->x_p, mlx->y_p + 1);
-	else if (keycode == D || keycode == R_ARROW)
-		move_(mlx, mlx->x_p + 1, mlx->y_p);
-	else if (keycode == W || keycode == U_ARROW)
-		move_(mlx, mlx->x_p, mlx->y_p - 1);
-	else if (keycode == ESC)
-	{
-		mlx_destroy_window(mlx->mlx, mlx->win);
-		exit(0);
-	}
-	return (0);
 }
