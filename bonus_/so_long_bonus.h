@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:45 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 18:28:10 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:57:46 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ typedef struct s_mlx
 	int		moves;
 	char	*coin_frames[7];
 	char	*coin_img[7];
-	int		index;
+	void	*mob_img[8];
+	int		index_c;
+	int		index_n;
 }	t_mlx;
 
 /*------------------main---------------------*/
@@ -155,5 +157,10 @@ void	coin_imgs(t_mlx *mlx);
 void	move_n(t_mlx *mlx);
 
 void	check_filename(char *filename);
+
+int		coin_animation(t_mlx *mlx);
+
+void	enemy_imgs(t_mlx *mlx);
+int		enemy_animation(t_mlx *mlx);
 
 #endif

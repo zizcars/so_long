@@ -6,17 +6,17 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:28 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 18:28:35 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:13:56 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	create_map(t_mlx *mlx)
+void create_map(t_mlx *mlx)
 {
-	int	x;
-	int	y;
-	int	i;
+	int x;
+	int y;
+	int i;
 
 	i = 0;
 	y = 0;
@@ -40,13 +40,13 @@ void	create_map(t_mlx *mlx)
 	}
 }
 
-void	error(char *error_message)
+void error(char *error_message)
 {
 	write(STDERR, error_message, ft_strlen(error_message));
 	exit(1);
 }
 
-void	set_default(t_mlx *mlx)
+void set_default(t_mlx *mlx)
 {
 	mlx->mlx = mlx_init();
 	mlx->win = NULL;
@@ -64,16 +64,17 @@ void	set_default(t_mlx *mlx)
 	mlx->x_e = 0;
 	mlx->y_e = 0;
 	mlx->moves = 0;
-	mlx->index = 0;
+	mlx->index_c = 0;
+	mlx->index_n = 0;
 	mlx->up_down = 1;
 	mlx->in_c = 0;
 	mlx->x_c = 0;
 	mlx->y_c = 0;
 }
 
-int	mouse(void *param)
+int mouse(void *param)
 {
-	t_mlx	*mlx;
+	t_mlx *mlx;
 
 	mlx = (t_mlx *)param;
 	mlx_destroy_window(mlx->mlx, mlx->win);
@@ -81,9 +82,9 @@ int	mouse(void *param)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	t_mlx	mlx;
+	t_mlx mlx;
 
 	mlx.size_img = 64;
 	if (argc != 2)
@@ -95,13 +96,16 @@ int	main(int argc, char **argv)
 	find_p(&mlx, &(mlx.x_e), &(mlx.y_e), 'E');
 	mlx.size_win_x = mlx.size_x * 64;
 	mlx.size_win_y = mlx.size_y * 64;
-	mlx.win = mlx_new_window(mlx.mlx, \
-		mlx.size_win_x, mlx.size_win_y, "so_long");
+	mlx.win = mlx_new_window(mlx.mlx,
+							 mlx.size_win_x, mlx.size_win_y, "so_long");
 	mlx_img(&mlx);
 	coin_imgs(&mlx);
 	find_p(&mlx, &mlx.x_n, &mlx.y_n, 'N');
+	enemy_imgs(&mlx);
+	display_map(&mlx);
 	mlx_hook(mlx.win, 2, 1L << 0, moves, (void *)&mlx);
 	mlx_hook(mlx.win, 17, 0, mouse, (void *)&mlx);
-	mlx_loop_hook(mlx.mlx, display_map, (void *)&mlx);
+	mlx_loop_hook(mlx.mlx, coin_animation, (void *)&mlx);
+	// mlx_loop_hook(mlx.mlx, enemy_animation, (void *)&mlx);
 	mlx_loop(mlx.mlx);
 }
