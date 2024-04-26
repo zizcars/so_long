@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:56:45 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/25 14:57:46 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:54:09 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ void	check_filename(char *filename);
 int		coin_animation(t_mlx *mlx);
 
 void	enemy_imgs(t_mlx *mlx);
-int		enemy_animation(t_mlx *mlx);
+
+void	enemy_animation(t_mlx *mlx);
 
 #endif

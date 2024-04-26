@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:42:13 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/25 12:48:50 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:46:04 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,9 @@ void	count_char(t_mlx *mlx, char *line)
 	}
 }
 
-void	coin_imgs(t_mlx *mlx)
-{
-	int	i;
-
-	mlx->coin_frames[0] = "textures/coin/coin0.xpm";
-	mlx->coin_frames[1] = "textures/coin/coin1.xpm";
-	mlx->coin_frames[2] = "textures/coin/coin2.xpm";
-	mlx->coin_frames[3] = "textures/coin/coin3.xpm";
-	mlx->coin_frames[4] = "textures/coin/coin4.xpm";
-	mlx->coin_frames[5] = "textures/coin/coin5.xpm";
-	mlx->coin_frames[6] = "textures/coin/coin6.xpm";
-	i = 0;
-	while (i < 7)
-	{
-		mlx->coin_img[i] = mlx_xpm_file_to_image(mlx->mlx, mlx->coin_frames[i], \
-			&mlx->size_img, &mlx->size_img);
-		if (mlx->coin_img[i] == NULL)
-			error("Error\ncoin Error\n");
-		i++;
-	}
-}
-
 void	mlx_img(t_mlx *mlx)
 {
-	char	*frames[6];
+	char	*frames[5];
 	int		i;
 
 	i = 0;
@@ -74,8 +52,7 @@ void	mlx_img(t_mlx *mlx)
 	frames[2] = "textures/player.xpm";
 	frames[3] = "textures/exit0.xpm";
 	frames[4] = "textures/exit1.xpm";
-	frames[5] = "textures/enemy.xpm";
-	while (i < 6)
+	while (i < 5)
 	{
 		mlx->img[i] = mlx_xpm_file_to_image(mlx->mlx, frames[i], \
 			&mlx->size_img, &mlx->size_img);
