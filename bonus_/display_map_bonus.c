@@ -6,16 +6,16 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:12:12 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/25 16:46:38 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:19:07 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void display_ground(t_mlx *mlx)
+void	display_ground(t_mlx *mlx)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < mlx->size_y)
@@ -23,15 +23,15 @@ void display_ground(t_mlx *mlx)
 		x = 0;
 		while (x < mlx->size_x)
 		{
-			mlx_put_image_to_window(mlx->mlx,
-									mlx->win, mlx->img[0], x * 64, y * 64);
+			mlx_put_image_to_window(mlx->mlx, \
+				mlx->win, mlx->img[0], x * 64, y * 64);
 			x++;
 		}
 		y++;
 	}
 }
 
-int display_condition(t_mlx *mlx, int *x, int y, int *i)
+int	display_condition(t_mlx *mlx, int *x, int y, int *i)
 {
 	if ((mlx->map)[y][*x] == '1')
 		*i = 1;
@@ -52,18 +52,19 @@ int display_condition(t_mlx *mlx, int *x, int y, int *i)
 	return (1);
 }
 
-void display_row(t_mlx *mlx, int y)
+void	display_row(t_mlx *mlx, int y)
 {
-	int x;
-	int i;
-	char *tmp;
+	int		x;
+	int		i;
+	char	*tmp;
 
 	x = 0;
 	while (x < mlx->size_x)
 	{
 		if (display_condition(mlx, &x, y, &i))
 		{
-			mlx_put_image_to_window(mlx->mlx,mlx->win, mlx->img[i], x * 64, y * 64);
+			mlx_put_image_to_window(mlx->mlx, mlx->win, \
+				mlx->img[i], x * 64, y * 64);
 			tmp = ft_itoa(mlx->moves);
 			mlx_string_put(mlx->mlx, mlx->win, 10, 10, 0xFFFFFF, tmp);
 			free(tmp);
@@ -73,10 +74,10 @@ void display_row(t_mlx *mlx, int y)
 	}
 }
 
-int display_map(void *param)
+int	display_map(void *param)
 {
-	int y;
-	t_mlx *mlx;
+	int		y;
+	t_mlx	*mlx;
 
 	mlx = (t_mlx *)param;
 	y = 0;

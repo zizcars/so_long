@@ -10,9 +10,8 @@ SRC =	mandatory/main.c \
 libs= mylib/mylib.a
 
 OBJ = $(SRC:.c=.o)
-BOBJ = $(BSRC:.c=.o)
 
-%.o: %.c mandatory/so_long.h  bonus_/so_long_bonus.h
+%.o: %.c mandatory/so_long.h
 	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 all: $(NAME)
@@ -20,7 +19,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(libs)
 	$(CC) $(CFLAGS) $(OBJ) $(libs) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-bonus:
+bonus: 
 	@make -C bonus_
 
 $(libs):
@@ -37,4 +36,5 @@ fclean:	clean
 	rm -f $(NAME)
 
 re:	fclean all
+
 .PHONY: clean fclean

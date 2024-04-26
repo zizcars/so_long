@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:57:15 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/26 11:59:40 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:12:52 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,6 @@ void	check_e(t_mlx *mlx)
 {
 	if (mlx->map[mlx->y_e][mlx->x_e] == '0')
 		mlx->map[mlx->y_e][mlx->x_e] = 'E';
-	// if (mlx->x_n < mlx->size_x && mlx->y_n < mlx->size_y)
-	// {
-	// 	if (mlx->map[mlx->y_n + 1][mlx->x_n] == '1' \
-	// 		&& mlx->map[mlx->y_n - 1][mlx->x_n] == '1')
-	// 		return ;
-	// 	else if (mlx->map[mlx->y_n + 1][mlx->x_n] == 'P' \
-	// 		|| mlx->map[mlx->y_n - 1][mlx->x_n] == 'P')
-	// 		return ;
-	// 	else
-	// 		move_n(mlx);
-	// }
 }
 
 void	check_wall(t_mlx *mlx, int x, int y)

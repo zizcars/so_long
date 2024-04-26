@@ -1,5 +1,5 @@
 CC = cc 
-BNAME = so_long
+BNAME = ../so_long
 CFLAGS = -Wall -Wextra -Werror
 BSRC =	main_bonus.c \
 		map_checker_bonus.c \
@@ -10,15 +10,16 @@ BSRC =	main_bonus.c \
 		animation_bonus.c 
 
 libs= ../mylib/mylib.a
+
 BOBJ = $(BSRC:.c=.o)
 
-%.o: %.c mandatory/so_long.h  bonus_/so_long_bonus.h
+%.o: %.c so_long_bonus.h
 	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
-all: ../$(BNAME)
+all: $(BNAME)
 
-../$(BNAME): $(BOBJ) $(libs)
-	$(CC) $(CFLAGS) $(BOBJ) $(libs) -lmlx -framework OpenGL -framework AppKit -o ../$(BNAME)
+$(BNAME): $(BOBJ) $(libs)
+	$(CC) $(CFLAGS) $(BOBJ) $(libs) -lmlx -framework OpenGL -framework AppKit -o $(BNAME)
 
 $(libs):
 	@make -C ../mylib
@@ -27,7 +28,7 @@ clean:
 	rm -f $(BOBJ)
 
 fclean:	clean
-	rm -f ../$(BNAME)
+	rm -f $(BNAME)
 
 re:	fclean all
 

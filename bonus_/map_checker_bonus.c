@@ -6,7 +6,7 @@
 /*   By: Achakkaf <zizcarschak1@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:30:56 by Achakkaf          #+#    #+#             */
-/*   Updated: 2024/04/24 18:25:53 by Achakkaf         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:12:40 by Achakkaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_char(char *line, int max)
 	if (len > 1 && ft_strchr(line, '\n'))
 		line[len] = '\0';
 	if (len != max || line[len - 1] != '1' || line[0] != '1')
-		error("the map doesn't srounded by walls\n");
+		error("Error\nthe map doesn't srounded by walls\n");
 	while (line && line[i])
 	{
 		j = 0;
@@ -36,7 +36,7 @@ void	check_char(char *line, int max)
 			j++;
 		}
 		if (check[j] == '\0')
-			error("undefined character\n");
+			error("Error\nundefined character\n");
 		i++;
 	}
 }
@@ -49,7 +49,7 @@ void	check_start_end(char *line)
 	while (line && (line[i] != '\n' && line[i]))
 	{
 		if (line[i] != '1')
-			error("no walls in start and end\n");
+			error("Error\nNo walls in start and end\n");
 		i++;
 	}
 }
@@ -103,7 +103,7 @@ void	map_checker(char *filename, t_mlx *mlx)
 	check_filename(filename);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		error("can't open the file\n");
+		error("Error\ncan't open the file\n");
 	map_reader(mlx, fd);
 	close(fd);
 	if (mlx->n_e != 1)
